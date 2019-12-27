@@ -80,6 +80,30 @@ $ python3 --version
 Python 3.7.5
 ```
 (oder eine aktuellere Version 3.7.X).
+
+### Installation auf einem Linux-Rechner
+Bei den meisten Linux-Distributionen ist Python vorinstalliert. Um die installierte Version zu prüfen, gibt man im **Terminal** `python3 --version` ein:
+```
+$ python3 --version
+Python 3.7.5
+```
+(oder eine andere Python-3-Version).
+
+Falls mehrere Python-Versionen installiert sind, liefert `apt list --installed | grep python` eine Übersicht.
+
+Die Installation/Aktualisierung von Python 3 mithilfe des Kommandos `apt-get` ist problemlos. Zunächst wird der Index des apt-get-Repositories auf dem eigenen Rechner aktualisiert:
+```
+$ sudo apt-get update
+```
+Falls noch keine Python-3-Version installiert ist, wird die neueste Version installiert mit:
+```
+$ sudo apt-get install python3
+```
+Falls eine vorhandene Python-3-Version nur aktualisiert werden muss, liefert
+```
+$ sudo apt-get upgrade python3
+```
+
  
 
 
