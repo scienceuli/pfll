@@ -1,5 +1,6 @@
 # Programmieren für Lektorinnen und Lektoren 
 
+* TOC
 {:toc}
 
 ## Warum programmieren?
