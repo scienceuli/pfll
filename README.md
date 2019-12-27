@@ -1,5 +1,7 @@
 # Programmieren für Lektorinnen und Lektoren 
 
+{:toc}
+
 ## Warum programmieren?
 
 Die Situation gehört vermutlich zum Alltag der meisten Lektorinnen und Lektoren: Gerade hat man wieder Stunden damit verbracht, Dateien zu verwalten, Formate zuzuweisen, Daten zu konvertieren, Ordnung in Excel-Chaos zu bekommen usw. Kurz: monotone und langweilige Routineaufgaben, die viel Zeit kosten und von der eigentlichen Arbeit ablenken.
@@ -20,7 +22,6 @@ Programmieren heißt im Wesentlichen, eine Folge von Anweisungen zu erstellen, d
 * Python ist relativ einfach zu erlernen, auch ohne Vorkenntnisse.
 * Die Syntax ist unkompliziert und lehnt sich an die englische Sprache an. Der Befehl  `print("Hallo")` macht zum Beispiel genau das, was man erwartet.
 * Mit relativ wenigen Befehlen und Strukturen lässt sich schon viel programmieren.
-* Die 
 * Python verfügt von Haus aus über eine umfangreiche Standard-Library. Daneben existieren zahlreiche weitere Libraries, die dafür sorgen, dass Python aus vielen Anwednungsfelderen nicht mehr wegzudenken ist: Data Science, Statistik, KI, Spieleentwicklung usw. Auch für unseren Lektorenalltag gibt es  ciele nützliche Tools.
 * Die Python-Community ist riesig. Man findet im Netz unzählige Tutorials, Tipps, Beispielprogramme usw. Es gibt auch viele gute Bücher zu Python. 
 
