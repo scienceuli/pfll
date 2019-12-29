@@ -104,8 +104,48 @@ Falls eine vorhandene Python-3-Version nur aktualisiert werden muss, liefert
 $ sudo apt-get upgrade python3
 ```
 
+## Python ausführen
+Es gibt mehrere Möglichkeiten, Python-Code auszuführen:
+* interaktiv in einer **Python Shell**
+* im **Terminal** (MacOS, Linux) bzw. in der **Eingabeaufforderung** (Windows)
+* in einer **IDE** (integrated development environment, integrierte Entwicklungsumgebung) oder einem **Editor**
+* aus einem **Dateimanager**
+
+### Python Shell
+Wurde Python 3 erfolgreich installiert, kann im **Terminal** (MacOS, Linux) bzw. der **Eingabeaufforderung** (Windows) eine interaktive **Python Shell** gestartet werden:
+```
+$ python3
+Python 3.6.6 (default, Aug 19 2019, 07:56:19) 
+[GCC 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.10.44.4)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+```
+Der Standard-Prompt für den interaktiven Modus ist >>>. In der **Python Shell** kann nun beliebiger Python-Code eingegeben und sofort ausgeführt werden. Wird die **Python Shell** beendet, ist der eingegebene Code "weg" – er wird nicht gespeichert.
+```
+>>> print('Hello World!')
+Hello World!
+>>> 2 + 3
+5
+```
+Um den interaktiven Modus wieder zu verlassen, nutzt man entweder den Befehl `quit()` bzw. `exit()` oder gibt **Ctrl+Z** (Windows) bzw. **Ctrl+D** (MacOS, Linux) ein.
+
+### Python-Skripte
+Ein Python-Skript ist eine Text-Datei mit der Endung **.py**, die in einem beliebigen Text-Editor erstellt werden kann. Sie enthält Python-Code, der dann ausgeführt wird, wenn das Skript aus dem **Terminal** oder der **Eingabeaufforderung** heraus aufgerufen wird. Das Skript **hello.py**, das 'Hello World!' ausgeben soll, enthält beispielsweise folgende Zeilen:
+```
+#!/usr/bin/env python3
  
-
-
+print('Hello World!')
+```
+Die erste Zeile, die mit dem _shebang_ **#!** startet, ist nicht unbedingt notwendig und aus Python-Sicht ein Kommentar. Sie wird dann benötigt, wenn das Skript _direkt_ ausgeführt wird im **Terminal**:
+```
+$ hello.py
+Hello World!
+```
+Sie wird _nicht_ benötigt, wenn das Skript zusammen mit dem Python-Interpreter ausgeführt wird:
+```
+$ python3 hello.py
+Hello World!
+```
+Sinn und Zweck der _Shebang_-Zeile ist es, das Skript in verschiedenen Umgebungen (z.B. auf verschiedenen Rechnern) lauffähig zu machen. Sie besagt sinngemäß: "Nimm aus meiner Umgebung (also meinen Pfaden, Installationen etc.) auf meinem Rechner den Python-3-Interpreter, den du dort findest." Man könnte als _Shebang_-Zeile auch den _absoluten Pfad_ zur Python-3-Installation auf dem jeweiligen Rechner angeben.
 
 
