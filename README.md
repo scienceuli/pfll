@@ -120,7 +120,7 @@ Python 3.6.6 (default, Aug 19 2019, 07:56:19)
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
 ```
-Der Standard-Prompt für den interaktiven Modus ist \> > >. In der **Python Shell** kann nun beliebiger Python-Code eingegeben und sofort ausgeführt werden. Wird die **Python Shell** beendet, ist der eingegebene Code "weg" – er wird nicht gespeichert.
+Der Standard-Prompt für den interaktiven Modus ist \>>>. In der **Python Shell** kann nun beliebiger Python-Code eingegeben und sofort ausgeführt werden. Wird die **Python Shell** beendet, ist der eingegebene Code "weg" – er wird nicht gespeichert.
 ```
 >>> print('Hello World!')
 Hello World!
