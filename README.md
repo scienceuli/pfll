@@ -34,7 +34,7 @@ Python kann kostenlos für Windows, OS X und Linux heruntergeladen werden. Zur Z
 
 ### Installation auf einem Windows-Rechner
 
-Auf https://python.org/downloads/ findet man Python für alle Betriebssysteme, sowohl für alte 32-bit- als auch für 64-bit-Rechner (alles, was nach 2007 gekauft wurde, sollte ein 64-bit-Rechner sein). Für Windows also den Python-3-Installer (64-bit) downloaden, ausführen und den Installationsanweisungen folgen. Die Default-Einstellungen können übernommen werden. Man sollte darauf achten, dass die Option _Add Python 3.X to your PATH_ angeklickt ist.
+Auf [Python.org](https://python.org/downloads/) findet man Python für alle Betriebssysteme, sowohl für alte 32-bit- als auch für 64-bit-Rechner (alles, was nach 2007 gekauft wurde, sollte ein 64-bit-Rechner sein). Für Windows also den Python-3-Installer (64-bit) downloaden, ausführen und den Installationsanweisungen folgen. Die Default-Einstellungen können übernommen werden. Man sollte darauf achten, dass die Option _Add Python 3.X to your PATH_ angeklickt ist.
 
 ### Installation auf einem Mac
 
@@ -103,6 +103,7 @@ Falls eine vorhandene Python-3-Version nur aktualisiert werden muss, liefert
 ```
 $ sudo apt-get upgrade python3
 ```
+die Aktualisierung.
 
 ## Python ausführen
 Es gibt mehrere Möglichkeiten, Python-Code auszuführen:
@@ -147,5 +148,77 @@ $ python3 hello.py
 Hello World!
 ```
 Sinn und Zweck der _Shebang_-Zeile ist es, das Skript in verschiedenen Umgebungen (z.B. auf verschiedenen Rechnern) lauffähig zu machen. Sie besagt sinngemäß: "Nimm aus meiner Umgebung (also meinen Pfaden, Installationen etc.) auf meinem Rechner den Python-3-Interpreter, den du dort findest." Man könnte als _Shebang_-Zeile auch den _absoluten Pfad_ zur Python-3-Installation auf dem jeweiligen Rechner angeben.
+
+### Pakete installieren mit pip
+**pip** ist der _Package Installer_ für Python. **pip** wird verwendet, um zusätzliche Python-Pakete zu installieren, die in der Standardbibliothek nicht enthalten sind. Das sind in erster Linie Pakete, die im [Python Package Index](https://pypi.org) gelistet sind. **pip** ist bereits auf dem Computer installiert, wenn Python vorhanden ist. Aber **Achtung**: Zumindest unter MacOS/Linux ist **pip** per default der Paketmanager für Python 2 und identisch zu **pip2**. Der entsprechende Paketmanager **pip3** wird installiert, wenn Python 3 installiert wird. Eine Übersicht, was installiert ist, liefern die Versionsabfragen zu **pip** und **pip3**:
+```
+$ pip --version 
+pip 19.0.3 from /usr/local/lib/python2.7/site-packages/pip (python 2.7)
+
+$ pip3 --version
+pip 19.1.1 from /usr/local/lib/python3.7/site-packages/pip (python 3.7)
+```
+**pip** gehört also hier zu Python 2, **pip3** zu Python 3.
+
+Ein Upgrade von **pip** mit 
+```
+$ python3 -m pip install --upgrade pip
+Collecting pip
+  Using cached https://files.pythonhosted.org/packages/00/b6/9cfa56b4081ad13874b0c6f96af8ce16cfbc1cb06bedf8e9164ce5551ec1/pip-19.3.1-py2.py3-none-any.whl
+Installing collected packages: pip
+  Found existing installation: pip 19.1.1
+    Uninstalling pip-19.1.1:
+      Successfully uninstalled pip-19.1.1
+Successfully installed pip-19.3.1
+```
+sorgt dafür, dass nun **pip2** der Paketmanager für Python 2  und **pip** bzw. **pip3** der Paketmanager für Python 3 ist:
+```
+$ pip2 -V 
+pip 19.0.3 from /usr/local/lib/python2.7/site-packages/pip (python 2.7)
+$ pip -V
+pip 19.3.1 from /usr/local/lib/python3.7/site-packages/pip (python 3.7)
+$ pip3 -V
+pip 19.3.1 from /usr/local/lib/python3.7/site-packages/pip (python 3.7)
+```
+D.h., egal ob nun **pip** oder **pip3** aufgerufen wird: es handelt sich jeweils um denselben Paketmanager für Python 3.
+
+Um ein  Paket mit **pip** zu installieren, wird im **Terminal** einfach `pip install` zusammen mit dem Paketnamen aufgerufen:
+```
+pip install IrgendeinPaket
+```
+
+
+### Virtuelle Umgebungen
+**Virtuelle Umgebungen** sind ein sehr praktisches Werkzeug, wenn man programmiert. Warum? Manchmal möchte man für ein bestimmtes Projekt eine andere Python-Version benutzen, aber nichts an der Version ändern, die  auf dem Rechner bereits installiert ist. Oder man möchte in einem Projekt bestimmte Python-Module installieren, die man in einem anderen Projekt nicht haben möchte. Mithilfe von virtuellen Projekten ist es möglich, mehrere Python-Versionen *nebeneinander* zu nutzen, ohne dass sie sich gegenseitig beeinflussen. Jedes Projekt hat dann seine eigene virtuelle Umgebung und ist von den anderen Projekten klar isoliert.
+
+Eine virtuelle Umgebung unter Python 3 wird erzeugt, wenn `python3` zusammen mit dem Modul **venv** aufgerufen wird:
+```
+$python3 -m venv /pfad/zur/neuen/virtuellen/Ummgebung
+```
+
+_Beispiel_: Wir legen ein neues Projekt _neues\_Projekt_ an und wechseln in das neue Verzeichnis:
+```
+$ mkdir neues_projekt
+$ cd neues_projekt
+```
+Innerhalb des neuen Verzeichnisses wird nun eine virtuelle Umgebung _env_ angelegt (Namen frei wählbar):
+```
+$ python3 -m venv env
+```
+Dieser Befehl legt ein neues Unterverzeichnis _env_ an, in dem eine ausführbare Python-3-Version liegt und in den auch alle zuätzlichen Intsallationen per **pip** geschrieben werden.
+
+Die neue virtuelle muss nun noch aktiviert werden:
+```
+$ source env/bin/activate
+(env) $
+```
+Der Prompt im **Terminal** wechsel von $ zu (env) $ und signalisiert damit, dass man sich nun innerhalb der virtuellen Umgebung _env_ befindet.
+
+Die virtuelle Umgebung lässt sich deaktibvieren mit:
+```
+(env) $ deactivate
+```
+
+
 
 
