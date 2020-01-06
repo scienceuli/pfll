@@ -25,11 +25,14 @@ layout = [  [sg.Text('Text in Zeile 1')],
 # Erzeugung des Fensters
 window = sg.Window('Fenstertitel', layout)
 
-# Event-Schleife um "events" zu verarbeiten und die "values" der Eingabe weiterzuleiten
+# Event-Schleife um "events" zu verarbeiten
+# und die "values" der Eingabe weiterzuleiten
 while True:
     event, values = window.read()
-    if event in (None, 'Abbrechen'):   # wenn der User das Fenster schließt oder Abbrechen anklickt
+    # wenn User Fenster schließt oder Abbrechen anklickt
+    if event in (None, 'Abbrechen'):  
         break
+    # andernfalls
     print('Deine Eingabe: ', values[0])
 
 window.close()
