@@ -44,7 +44,7 @@ Der Aufruft dieses Skripts
 $ python3 simple_gui.py
 ```
 erzeugt dieses Fenster:
-![Einfaches PySimpleGUI-Fenster mit Eingabemöglichkeit](./simple_window.png "Einfaches GUI")
+![Einfaches PySimpleGUI-Fenster mit Eingabemöglichkeit](simple_window.png "Einfaches GUI")
 
 
 

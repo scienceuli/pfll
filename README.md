@@ -214,7 +214,7 @@ $ source env/bin/activate
 ```
 Der Prompt im **Terminal** wechsel von $ zu (env) $ und signalisiert damit, dass man sich nun innerhalb der virtuellen Umgebung _env_ befindet.
 
-Die virtuelle Umgebung lässt sich deaktibvieren mit:
+Die virtuelle Umgebung lässt sich deaktivieren mit:
 ```
 (env) $ deactivate
 ```
