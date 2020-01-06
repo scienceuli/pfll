@@ -1,8 +1,3 @@
----
-title: SimpleGUI
-permalink: /GUI/simplegui/
----
-
 # Python und Graphical User Interface (GUI)
 Python-Skripte werden im Terminal gestartet und bekommen ggf. nötigen Imput auch über das Terminal. Mit Python lassen sich aber auch **grafische Benutzeroberflächen** gestalten (**GUI**) gestalten. Verschiedene Module stehen dabei zur Verfügung, um GUIs zu konstruieren. Ein besonders einfach zu handhabendes Werkzeug ist **PySimpleGUI**. Es erlaubt, ohne großen Aufwand einer Anwendung eine grafische Oberfläche hinzuzufügen.
 
