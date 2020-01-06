@@ -1,3 +1,7 @@
+---
+title: Readme
+permalink: /readme/
+---
 # Programmieren für Lektorinnen und Lektoren 
 
 * TOC
