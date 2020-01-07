@@ -369,5 +369,6 @@ Loading .env environment variables...
 
 ## Anwendungen
 * [GUI](GUI/SimpleGUI.md)
+* [Arbeiten mit Word-Dateien](Word/README.md)
 
 
