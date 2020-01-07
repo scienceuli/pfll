@@ -8,13 +8,24 @@
 Die Situation gehört vermutlich zum Alltag der meisten Lektorinnen und Lektoren: Gerade hat man wieder Stunden damit verbracht, Dateien zu verwalten, Formate zuzuweisen, Daten zu konvertieren, Ordnung in Excel-Chaos zu bekommen usw. Kurz: monotone und langweilige Routineaufgaben, die viel Zeit kosten und von der eigentlichen Arbeit ablenken.
 
 Dabei gibt es doch gerade für solche Aufgaben den Computer! Mit den richtigen Anweisungen - sprich: dem richtigen Programm – erledigt er in Sekunden, wofür wir Stunden brauchen. Natürlich verwenden wir im Büroalltag mächtige (und oft teure) Softwarewerkzeuge, mit deren Hilfe wir schreiben, zeichnen, designen usw. Aber die "kleinen Helferlein" sind es, die uns bei den einfachen, aber zeitraubenden Aufgaben unterstützen. Um nur einige Beispiele zu nennen:
-* Dateien verschieben, kopieren, ordnen
-* Excel-Arbeitsblätter erstellen, bearbeiten, formatieren
-* Word-Dateien durchsuchen, formatieren, erstellen
-* Pdfs erzeugen, umwandeln, bearbeiten
+* Eine große Zahl an Dateien muss nach einer Tabelle (alter/neuer Name) oder einem bestimmten Schema umbenannt werden.
+* Suche/Ersetze in mehreren Word-Dokumenten (ggf. mit Mustervergleich), ohne diese zu öffnen
+* Zitate und Literaturliste in einem Dokument überprüfen (Nummerierung kontinuierlich und eindeutig? Verzeichnis vollständig?)
+* Überschriften-Hierearchie in Word-Dateien prüfen (nach Überschrift 1 darf nur Überschrift 2 folgen usw.), Inhaltsverzeichnis anlegen
+* Text aus Pdfs lesen, Pdfs zusammenfügen usw.
+* Verlinkung von Tabellen und Abbildungen in Word prüfen (wird jedes Element auch im Text aufgerufen?)
 * ...
 
-Oft gibt es dafür keine fertigen Programme, weil diese Aufgaben eng mit unseren Projekten und Workflows verzahnt sind. Mit etwas Programmierkenntnis lassen sie sich aber dem Computer beibringen. Dafür muss man kein _IT-Nerd_ mit jahrelanger Programmiererfahrung sein. Schon einige Grundkenntnisse reichen aus, um kleine aber sinnvolle Programme zu erstellen. Und es macht sogar Spaß!
+Oft gibt es dafür keine fertigen Programme, weil diese Aufgaben eng mit unseren Projekten und Workflows verzahnt sind. Oder es gibt kommerzielle Lösungen, die aber kosten. Mit etwas Programmierkenntnis lassen sich jedoch solche Workflows jedoch Computer beibringen. Dafür muss man kein _IT-Nerd_ mit jahrelanger Programmiererfahrung sein. Schon einige Grundkenntnisse reichen aus, um kleine aber sinnvolle Programme zu erstellen. Und es macht sogar Spaß!
+
+Und ist man mal auf den Geschmack gekommen, geht man evtl. auch an größere Aufgaben:
+* Inhalte aus Webseiten auslesen (_Web Scraping_)
+* Datenbanken nutzen
+* kleine Webanwendungen basteln
+* Bilder bearbeiten
+* ...
+
+Auch das ist kein Hexenwerk!
 
 ## Warum Python?
 
