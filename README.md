@@ -105,7 +105,7 @@ $ sudo apt-get upgrade python3
 ```
 die Aktualisierung.
 
-###Editoren
+### Editoren
 Python-Programme können in jedem Text-Editor geschieben werden (Achtung: Word etc. sind _keine_ Text-Editoren). Es gibt aber einige Editoren, die besonders für das Programmieren geeignet sind, weil Sie die Programmiererin bei vielen Dingen unterstützen (z.B. Syntax, farbliche Gestaltung, Programme ausführen usw.). Man spricht auch von **Entwicklungsumgebungen**
 
 * [Visual Studio Code](https://code.visualstudio.com) ist ein sehr beliebter und leistungsfähiger Open-Source-Editor, der überwiegend von MS-Mitarbeitern entwickelt wird (aber so gut wie nichts mit dem ähnlick klingenden Produkt "Visual Studio" zu tun hat). Es gibt zahlreiche Erweiterungen, die das Leben erleichern.
