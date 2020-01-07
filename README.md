@@ -105,6 +105,14 @@ $ sudo apt-get upgrade python3
 ```
 die Aktualisierung.
 
+###Editoren
+Python-Programme können in jedem Text-Editor geschieben werden (Achtung: Word etc. sind _keine_ Text-Editoren). Es gibt aber einige Editoren, die besonders für das Programmieren geeignet sind, weil Sie die Programmiererin bei vielen Dingen unterstützen (z.B. Syntax, farbliche Gestaltung, Programme ausführen usw.). Man spricht auch von **Entwicklungsumgebungen**
+
+* [Visual Studio Code](https://code.visualstudio.com) ist ein sehr beliebter und leistungsfähiger Open-Source-Editor, der überwiegend von MS-Mitarbeitern entwickelt wird (aber so gut wie nichts mit dem ähnlick klingenden Produkt "Visual Studio" zu tun hat). Es gibt zahlreiche Erweiterungen, die das Leben erleichern.
+* [Sublime Text](https://www.sublimetext.com) bewegt sich auf ähnlichem Niveau. Es ist frei downloadbar, allerdings wird man aufgefordert, eine Lizenz zu erwerben.
+* [Thonny](https://bitbucket.org/plas/thonny/downloads/) für Windows, MacOS und Linux ist eine Entwicklungsumgebung, die besonders für Einsteigerinnen geeignet ist. Die Benutzeroberfläche von Thonny ist einfach und übersichtlich gestaltet, quasi selbsterklärend. Für kleine Projekte und zum Lernen bestens geeignet, für große Projekte eher nicht.
+* [Mu](https://codewith.mu/en/download) ist ebenfalls für alle Betriebssysteme downloadbar und richtet sich wie Thonny eher an Neulinge.
+
 ## Python ausführen
 Es gibt mehrere Möglichkeiten, Python-Code auszuführen:
 * interaktiv in einer **Python Shell**
@@ -139,7 +147,7 @@ Hello World!
 Um den interaktiven Modus wieder zu verlassen, nutzt man entweder den Befehl `quit()` bzw. `exit()` oder gibt **Ctrl+Z** (Windows) bzw. **Ctrl+D** (MacOS, Linux) ein.
 
 ### Python-Skripte
-Ein Python-Skript ist eine Text-Datei mit der Endung **.py**, die in einem beliebigen Text-Editor erstellt werden kann. Sie enthält Python-Code, der dann ausgeführt wird, wenn das Skript aus dem **Terminal** oder der **Eingabeaufforderung** heraus aufgerufen wird. Das Skript **hello.py**, das 'Hello World!' ausgeben soll, enthält beispielsweise folgende Zeilen:
+Ein Python-Skript ist eine Text-Datei mit der Endung **.py**, die in einem beliebigen Text-Editor erstellt werden kann (siehe Punkt [Editoren](#editoren)). Sie enthält Python-Code, der dann ausgeführt wird, wenn das Skript aus dem **Terminal** oder der **Eingabeaufforderung** heraus aufgerufen wird. Das Skript **hello.py**, das 'Hello World!' ausgeben soll, enthält beispielsweise folgende Zeilen:
 ```
 #!/usr/bin/env python3
  
