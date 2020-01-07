@@ -51,7 +51,7 @@ Die auf einem Mac vorinstallierte Python-Version ist also Python 2, wir wollen a
 
 #### Installation von der Python-Webseite
 
-Man kann von https://python.org/downloads/ den zur eigenen OSX-Version passenden Python-3-Installer (.dmg) herunterladen und ausführen. Python 3 steht anschließend zur Verfügung und befindet sich im Programm-Verzeichnis. 
+Man kann von [Python.org](https://python.org/downloads/) den zur eigenen OSX-Version passenden Python-3-Installer (.dmg) herunterladen und ausführen. Python 3 steht anschließend zur Verfügung und befindet sich im Programm-Verzeichnis. 
 
 #### Installation mit HomeBrew
 **Empfehlenswert** ist jedoch die Installation mittels **HomeBrew**, einem weit verbreiteten _Paketmanager_, mit dem man zusätzliche Software installieren kann. Das erfordert ein klein wenig mehr Aufwand, ist aber "sauberer", was Installationspfade, Updates und Uninstalls angeht. Um **HomeBrew** zu installieren, wird wiederum **XCode** benötigt, Apples Entwicklungsumgebung. Die Installation erfordert aber nur eine Zeile im **Terminal**:
