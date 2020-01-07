@@ -112,6 +112,14 @@ Es gibt mehrere Möglichkeiten, Python-Code auszuführen:
 * in einer **IDE** (integrated development environment, integrierte Entwicklungsumgebung) oder einem **Editor**
 * aus einem **Dateimanager**
 
+### Terminal und Eingabeaufforderung
+Die übliche Weise, mit dem Python-Interpreter zu interagieren, passiert in einer **Konsole**, in der man entsprechende Kommandos eingibt.
+Das Hauptwerkzeug, mit Python zu arbeiten, ist also nicht die Maus, sondern die Tastatur.
+
+Die Standardkonsole unter **Mac OS** ist das **Terminal**, das man unter den Dienstprogrammen auf dem Mac findet. Es besteht im Wesentlichen aus einem Fenster mit einer Eingabeaufforderung (Prompt). Auch unter **Linux** heißt die Konsole **Terminal**. Der Funktionsumfang der Terminals unter OS X und Linux ist sehr ähnlich.
+
+Die **Windows**-Konsole wird **Eingabeaufforderung** bzw. **cmd** genannt. Sie läasst sich z.B. im Startmenü aufrufen. Die Windows-Konsole ist nicht so mächtig wie die Linux- und OS X-Versionen. Mit Python lässt sich aber trotzdem auch unter Windows arbeiten.  
+
 ### Python Shell
 Wurde Python 3 erfolgreich installiert, kann im **Terminal** (MacOS, Linux) bzw. der **Eingabeaufforderung** (Windows) eine interaktive **Python Shell** gestartet werden:
 ```
@@ -218,6 +226,127 @@ Die virtuelle Umgebung lässt sich deaktivieren mit:
 ```
 (env) $ deactivate
 ```
+
+### pip plus virtualenv = pipenv
+Inzwischen verwenden viele Programmierer zur Einrichtung virtueller Umgebungen und zur Installationen von Python-Paketen nicht mehr **virtualenv** bzw. **pip**, sondern das Tool **pipenv**. Es kombiniert beide Methoden und hat eine Reihe von Vorteilen gegenüber den "alten" Werkzeugen **virtualenv** und **pip**.
+
+#### Installation
+Die Installation von **pipenv** ist einfach:
+```
+$ pip install pipenv
+```
+Um eine virtuelle Umgebung einzurichten _und_ ein zusätzliches Python-Paket (z.B. _requests_) zu installieren, reicht nun _ein_ Befehl: Man geht ins Arbeitsverzeichnis eines Projekts (oder erstellt ein neues Projektverzeichnis und wechsel dorthin) und führt dort `pipenv install requests` aus:
+```
+$ mkdir mein_projekt
+$ cd mein_projekt
+$ pipenv install requests
+Creating a virtualenv for this project…
+Pipfile: /Users/scienceuli/Devel/pfll/Pipfile
+Using /Users/scienceuli/.pyenv/versions/3.7.4/bin/python3.7 (3.7.4) to create virtualenv…
+⠹ Creating virtual environment...
+...
+✔ Successfully created virtual environment! 
+Virtualenv location: /Users/scienceuli/.local/share/virtualenvs/pfll-YbjUxZUl
+Creating a Pipfile for this project…
+Installing requests…
+Adding requests to Pipfile's [packages]…
+✔ Installation Succeeded 
+Pipfile.lock not found, creating…
+Locking [dev-packages] dependencies…
+Locking [packages] dependencies…
+✔ Success! 
+Updated Pipfile.lock (444a6d)!
+Installing dependencies from Pipfile.lock (444a6d)…
+  🐍   ▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉ 5/5 — 00:00:01
+To activate this project's virtualenv, run pipenv shell.
+Alternatively, run a command inside the virtualenv with pipenv run.
+```
+Mit diesem Befehl wird also 
+1. eine virtuelle Umgebung mit Python 3.7.4 erzeugt,
+2. ein sogenanntes _Pipfile_ angelegt, das die virtuelle Umgebung beschreibt (wo gespeichert, was installiert, welche Versionen, ...),
+3. das Paket _requests_ installiert,
+4. ein _Pipfile.lock_ angelegt, das  automatisch erzeugt wird und detaillierte Informationen zu installierten Paketen (_packages_) und Abhänggigkeiten (_dependencies_) enthält. Mithilfe des _Pipfile.lock_ lässt sich die virtuelle Umgebung an einem anderen Ort _exakt_ reproduzieren.
+
+#### Aktivierung und Deaktivierung
+Die mit `pipenv install` erzeugte virtuelle Umgebung wird mit 
+```
+$ pipenv shell
+```
+aktiviert. Der Prompt ändert sich daraufhin und zeigt die virtuelle Umgebung (sie hat defaultmäßig den gleichen Namen wie das Projektverzeichnis) an:
+```
+(mein_projekt) $
+```
+Ruft man in der virtuellen Umgebung `which python` auf, sieht man, dass jetzt die Python-Installation der virtuellen Umgebung benutzt wird:
+```
+(mein_projekt) $ which python
+/Users/scienceuli/.local/share/virtualenvs/mein_projekt-YbjUxZUl/bin/python
+```
+Mit
+```
+$ exit
+exit
+```
+verlässt man die virtuelle Umgebung wieder.
+
+Mithilfe des Befehls `pipenv run python` kann man Python aus der virtuellen Umgebung starten (oder ein Skript), _ohne_ sie vorher durch `pipenv shell` aktiviert zu haben:
+```
+$ pipenv run python
+```
+bzw.
+```
+$ pipenv run python skript.py
+```
+Voraussetzung: Man ist im Projekt-Verzeichnis, in dem sich das _Pipfile_ befindet.
+
+#### Wichtige pipenv-Kommandos
+
+```
+$ pipenv install package --dev
+```
+_package_ wird nur in der Entwicklungsumgebung installiert
+
+```
+$ pipenv uninstall package
+```
+deinstalliert das Paket _package_
+
+```
+$ pipenv --python 3.6
+```
+reinstalliert die virtuelle Umgebung mit einer anderen Python-Version (hier: 3.6 statt 3.7). **Achtung:** Auch _Pipfile_ muss geändert werden
+
+```
+$ pipenv --rm
+```
+virtuelle Umgebung wird entfernt 
+
+```
+$ pipenv --venv
+```
+Pfad zur virtuellen Umgebung
+
+```
+$ pipenv check
+```
+prüft die installiert Pakete und Abhängigkeiten
+
+```
+$ pipenv graph
+```
+zeigt eine Grafik der Abhängigkeiten
+
+```
+.env
+```
+In dieser Datei werden Umgebungsvariablen wie z.B. _SECRET\_KEY_ abgelegt, die beim Starten von Python in der virtuellen Umgebung geladen werden.
+```
+$ pipenv run python
+Loading .env environment variables...
+...
+```
+
+
+
 
 ## Anwendungen
 * [GUI](GUI/SimpleGUI.md)
