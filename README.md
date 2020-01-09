@@ -368,7 +368,14 @@ Loading .env environment variables...
 
 
 ## Anwendungen
-* [GUI](GUI/SimpleGUI.md)
+* Basics ((folgt))
+* Arbeiten mit Dateien und Verzeichnissen ((folgt))
 * [Arbeiten mit Word-Dateien](Word/README.md)
+* Arbeiten mit Pdfs ((folgt))
+* Arbeiten mit Excel ((folgt))
+* [GUI](GUI/SimpleGUI.md)
+* Arbeiten mit Schnittstellen ((folgt))
+* Web-Anwendungen ((folgt))
+* ...
 
 
