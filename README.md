@@ -374,7 +374,7 @@ Loading .env environment variables...
 * Arbeiten mit Pdfs ((folgt))
 * Arbeiten mit Excel ((folgt))
 * [GUI](GUI/SimpleGUI.md)
-* Arbeiten mit Schnittstellen ((folgt))
+* [Arbeiten mit Schnittstellen](API/README.md)
 * Mit wenigen Klicks zum eigenen Blog ((folgt))
 * Web-Anwendungen ((folgt))
 * ...
