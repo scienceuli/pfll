@@ -367,7 +367,7 @@ Loading .env environment variables...
 
 
 
-## Anwendungen
+## Workflows automatisieren mit Python
 * Basics ((folgt))
 * Arbeiten mit Dateien und Verzeichnissen ((folgt))
 * [Arbeiten mit Word-Dateien](Word/README.md)
@@ -375,6 +375,7 @@ Loading .env environment variables...
 * Arbeiten mit Excel ((folgt))
 * [GUI](GUI/SimpleGUI.md)
 * Arbeiten mit Schnittstellen ((folgt))
+* Mit wenigen Klicks zum eigenen Blog ((folgt))
 * Web-Anwendungen ((folgt))
 * ...
 
