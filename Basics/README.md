@@ -120,7 +120,7 @@ print('Hallo, ' + name)
 
 Das Programm speichert man unter einem beliebigen Dateinamen mit der Endung _.py_ ab (auch hier sind aussagekräftige Dateinamen vorzuziehen). Anschließend kann man es aus dem Terminal heraus ausführen:
 ```
-$ python print_Input.py 
+$ python print_input.py 
 Wie heißt du?
 Uli
 Hallo, Uli
@@ -129,6 +129,26 @@ Hallo, Uli
 
 
 ## Listen
+**Listen** sind sehr nützliche Konstuktionen. Man hat ja auch im Lektorinnenalltag ständig damit zu tun: Listen von Begiffen, von Namen, von Projekten, von ...
+
+Listen werden in Python mit eckigen Klammern notiert, wobei die Listenelemente mit Kommas abgetrennt werden:
+```
+namen_liste = ['Ulrich', 'Walter', 'Sabine']
+```
+Diese Liste (von mir `namen_liste` genannt) enthält drei Strings als Elemente. Ihre Länge ist also 3:
+```
+>>> namen_liste = ['Ulrich', 'Walter', 'Sabine']
+>>> len(namen_liste)
+3
+```
+Die Funktion `len()` kann man auch auf Strings anwenden. Dann gibt sie die Länge des Strings zurück:
+```
+>>> name = 'Ulrich'
+>>> len(name)
+6
+```
+
+
 
 
 
