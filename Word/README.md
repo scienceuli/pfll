@@ -67,4 +67,71 @@ for run in erster_absatz.runs:
 doc.save("test_03_restyled.docx")
 ```
 
+## Überschriften prüfen
+Mithilfe eines Python-Skripts kann man auch schnell die Formate innerhalb eines Word-Dokuments prüfen, z.B. die Logik ihrer Verwendung.
+
+Beispiel: Das Dokument _test\_04.docx_ enthält einige Überschriften (_Heading 1_, _Heading 2_ usw. ). Das folgende Skript legt zunächst wieder eine Liste der Absätze an und iteriert dann über alle Absätze. Dabei wird der Name des jeweiligen Absatzstils ausgegeben.
+
+Jetzt sollen uns aber nur die Absatzstile _Heading 1_, _Heading 2_ usw. interessieren. Um diese aus allen Absatzstillen herauszufischen, definieren wir einen sog. _Regulären Ausdruck_ (_Regular Expression_), mit dem wir die Absatzstile vergleichen. Für die Arbeit mit regulären Ausdrücken hält Python die Standardbibliothek **re** bereit. Diese müssen wir zwar nicht installieren, aber zu Beginn mit `import re` importieren.
+
+Der reguläre Ausdruck, der auf alle Überschriftenstile passt, lautet
+```
+h = re.compile('(Heading)(\s)(\d+)')
+```
+Also ein String, der sich aus `'Heading'`, einem Leerzeichen `\s` und einer oder mehreren Ziffern `\d+` zusammensetzt. Das `\d` steht dabei für eine Ziffer (_digit_) und das Pluszeichen steht  für "eine oder mehrere". Die runden Klammern gruppieren den regulären Ausdruck, das vereinfacht den Verweis auf Teile des gesuchten Ausdrucks (s.u.).
+
+Wenn unser Skript auf eine Überschrift stößt, soll es diese Überschrift in eine Textdatei, die wir anlegen bzw. öffnen, schreiben. Wir suchen also einen _Match_ zwischen unserem regulären Ausdruck und dem Absatzstil, über den gerade iteriert wird:
+```
+m = h.match(absatz.style.name)
+``` 
+Die Variable `m` ist also jetzt keine Zahl oder String, sondern ein Wahrheitswert: Passt der Match, dann _True_, passt er nicht, dann _False_. Wir interessieren uns nur für _True_:
+```
+if m:
+    out.write(absatz.style.name)
+```
+Um die Ausgabe noch ein wenig schöner zu machen, fügen wir  noch einen Zeilenumbruch `\n` nach jeder Zeile ein. Außerdem wenden wir noch einen kleinen Trick an: Liegt ein _Match_ vor, dann enthält das dritte runde Klammerpaar des regulären Ausdrucks die Nummer des Überschriftenstils. Also: Bei "Heading 2" schlägt der Match an (passt zum regulären Ausdruck), d.h. das dritte Klammerpaar im regulären Ausdruck passt in diesem Fall auf "2". Auf diese "2" können wir durch die Funktion `group(3)` zugreifen, da sie den Inhalt des dritten Klammerpaars im regulären Ausdruck zurückgibt.
+
+Mit dieser Zahl möchten wir anschließend rechnen, d.h. wir wandeln sie per `int()` in eine Integerzahl um. Wir sagen nämlich: Füge vor jeder Zeile so viele Tabs ein, wie es der Überschriftenhiearchie entspricht. Bzw. genauer: ziehe noch 1 ab, da vor einer Überschrift mit Stil _Heading 1_ kein Tab, stehen soll, vor einer mit _Heading 2_ ein Tab usw.
+
+Das gesamt Skript siehe also wie folgt aus:
+```
+# headlines.py
+
+import docx
+import re # fuer regulaere Ausdruecke
+
+doc = docx.Document('test_04.docx')
+
+liste_der_absaetze = doc.paragraphs
+
+for absatz in liste_der_absaetze:
+    print(absatz.style.name)
+
+# definiere regex um Headings zu finden
+h = re.compile('(Heading)(\s)(\d+)')
+
+with open('test_04_headlines.txt', 'w') as out:
+    for absatz in liste_der_absaetze:
+        # Match fuer Überschrift
+        m = h.match(absatz.style.name)
+        if m:
+            anzahl_tabs = int(m.group(3))-1
+            out.write("\t"*anzahl_tabs)
+            out.write(absatz.style.name + "\n")
+```
+Es schreibt folgende Zeilen in die Datei _test\_04\_headlines.txt_:
+```
+Heading 1
+	Heading 2
+			Heading 4
+	Heading 2
+		Heading 3
+		Heading 3
+```
+Kopiert man diese Zeilen z.B. nach Excel, werden die Überschriften aufgrund der Tabs auf verschiedene Spalten verteilt. Man sieht dann schnell, dass hier ein Fehler in der Überschriftenlogik vorliegt: Nach einer _Heading 2_ kommt direkt eine _Heading 4_.
+
+Mögliche Erweiterung: Tritt dieser Fall auf (eine Überschriftenebene fehlt), soll eine Meldung ausgegeben werden. 
+
+
+
 

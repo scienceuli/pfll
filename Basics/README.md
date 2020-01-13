@@ -129,6 +129,7 @@ Hallo, Uli
 
 
 ## Listen
+### Listen anlegen und darauf zugreifen
 **Listen** sind sehr nützliche Konstuktionen. Man hat ja auch im Lektorinnenalltag ständig damit zu tun: Listen von Begiffen, von Namen, von Projekten, von ...
 
 Listen werden in Python mit eckigen Klammern notiert, wobei die Listenelemente mit Kommas abgetrennt werden:
@@ -147,6 +148,84 @@ Die Funktion `len()` kann man auch auf Strings anwenden. Dann gibt sie die Läng
 >>> len(name)
 6
 ```
+Die Elemnte einer Liste werden von Python durchnummeriert, beginnend bei 0:
+```
+>>> namen_liste[0]
+'Ulrich'
+>>> namen_liste[1]
+'Walter'
+>>> namen_liste[2]
+'Sabine'
+```
+Der `print()`-Befehl angewandt auf die Liste gibt die gesamte Liste aus, inklusive Klammern:
+```
+>>> print(namen_liste)
+['Ulrich', 'Walter', 'Sabine']
+```
+Manchmal durchaus nützlich: Der Index -1 gibt immer das letzte Element einer Liste aus, der Index -2 das vorletzte usw.:
+```
+>>> namen_liste[-1]
+'Sabine'
+>>> namen_liste[-2]
+'Walter'
+>>> namen_liste[-3]
+'Ulrich'
+```
+Listen lassen sich ändern,
+```
+>>> namen_liste[0] = 'Ursula'
+>>> namen_liste
+['Ursula', 'Walter', 'Sabine']
+```
+und mithilfe von `append()` verlängern.
+```
+>>> namen_liste.append('Ulrich')
+>>> namen_liste
+['Ursula', 'Walter', 'Sabine', 'Ulrich']
+```
+Möchte man an einer bestimmten Stelle, z.B. der mit Index 1, ein Element einfügen, nutzt man
+```
+>>> namen_liste.insert(1, 'Monika') 
+>>> namen_liste
+['Ursula', 'Monika', 'Walter', 'Sabine', 'Ulrich']
+```
+
+### Listen sortieren
+Sehr oft möchte man Listen sortieren. Dabei gibt es zwei Möglichkeiten:
+* dauerhaft sortieren mit `sort()` (bzw. `sort(reverse=True)` für die andere Richtung, d.h. die Liste wird geändert:
+  ```
+  >>> namen_liste.sort()
+  >>> namen_liste
+  ['Monika', 'Sabine', 'Ulrich', 'Ursula', 'Walter']
+  >>> namen_liste.sort(reverse=True)
+  >>> namen_liste
+  ['Walter', 'Ursula', 'Ulrich', 'Sabine', 'Monika']
+  ```
+* einmalig sortieren, ohne die ursprüngliche Liste zu ändern, mit der Funktion `sorted()`:
+  ```
+  >>> sorted(namen_liste)
+  ['Monika', 'Sabine', 'Ulrich', 'Ursula', 'Walter']
+  >>> namen_liste
+  ['Walter', 'Ursula', 'Ulrich', 'Sabine', 'Monika']
+  ```
+
+## Dictionaries
+
+Auch der Datentyp _Dictionaries_ stellt eine listenähnliche Datensammlung dar, allerdings werden jetzt die Dictionary-Elemente nicht einfach durchnummeriert, sondern bestehen aus **Schlüssel-Wert-Paaren** wie `"name": "Ulrich"`. Hierbei ist `"name"` der Schlüssel und `"Ulrich"` der zugehörige Wert. Der Wert kann auch eine Zahl sein: `"alter": 26`. Die Schlüssel-Wert-Paare werden durch geschweifte Klammern zu einem _Dictionary_ zusammengefasst:
+```
+person = {"name": "Ulrich", "alter": 42, "ort": "Frickingen"}
+```
+Ein _Dictionary_ kann man sich also wie einen Steckbrief für ein Objekt vorstellen.   
+
+Die Werte eines _Dictionaries_ lassen sich über den Schlüssel abrufen:
+```
+>>> person = {"name": "Ulrich", "alter": 26, "ort": "Frickingen"}
+>>> print(person["name"] + " ist " + str(person["alter"]) + " Jahre alt.")
+Ulrich ist 42 Jahre alt.
+```
+Man beachte hier: Das Pluszeichen kann nur Strings mit Strings verknüpfen. Deshalb muss die Integer-Zahl `person["alter"]` erst mithilfe der Funktion `str(person["alter"])` in einen String umgewandelt werden.
+
+
 
 
 
