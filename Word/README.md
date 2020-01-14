@@ -132,6 +132,50 @@ Kopiert man diese Zeilen z.B. nach Excel, werden die Überschriften aufgrund der
 
 Mögliche Erweiterung: Tritt dieser Fall auf (eine Überschriftenebene fehlt), soll eine Meldung ausgegeben werden. 
 
+## Word und Seitenzahlen
+Kann man mithilfe von **python-docx** die Seitenzahlen aus einem Word-Dokument ziehen? Die kurze Antwort: Nein, da Word die Seitenzahlen während des Render-Vorgangs erzeugt, wenn es den Text für die Darstellung am Monitor bzw. den Druck aufbereitet. _Aber_: Word schreibt in die XML-Daten an den Stellen, an denen beim letzten Render-Vorgang ein Page Break eingefügt wurde, das Element `<w:lastRenderedPageBreak>`. Und jetzt das coole: das Objekt `run._element.xml` gibt zu einem _Run_ das zugehörige  Element zurück. Wenn man also über alle _Runs_ eines Absatzes iteriert und auf das XML-Element `<w:lastRenderedPageBreak>` stößt, setzt man die Seitenzahl um 1 herauf.
+
+Das folgende Skript iteriert über alle Absätze eines Dokuments und vergleicht den Absatzstil mit dem Regulären Ausdruck `'Heading*'`. Findet es eine Überschrift, gibt sie den Text der Überschrift und die zugehörige Seitenzahl. Diese wiederum ändert sich um 1, wenn ein _Run_ das XML-Element  `<w:lastRenderedPageBreak>`  enthält:
+```
+seitenzahl += 1
+```
+Diese Zeile ist die Kurzform von `seitenzahl = seitenzahl + 1`.
+
+```
+# seitenzahlen.py
+
+from docx import Document
+import re
+
+doc = Document('test_05.docx')
+
+# setze die Seitenzahl auf 1
+seitenzahl = 1    
+
+for p in doc.paragraphs:
+    r = re.match('Heading*',p.style.name)
+    if r:
+        print(p.text, "auf Seite:", seitenzahl)
+    for run in p.runs:
+        if '<w:lastRenderedPageBreak/>' in run._element.xml:
+            seitenzahl += 1
+```
+Die Ausgabe:
+```
+Überschrift 1 auf Seite: 1
+Überschrift 2 auf Seite: 1
+Überschrift 5 auf Seite: 1
+Überschrift 3 auf Seite: 1
+Überschrift 4 auf Seite: 1
+Überschrift 6 auf Seite: 1
+Überschrift 7 auf Seite: 1
+Überschrift 8 auf Seite: 2
+Überschrift 9 auf Seite: 2
+Überschrift 10 auf Seite: 2
+Überschrift 11 auf Seite: 2
+```
+
+
 
 
 

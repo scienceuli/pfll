@@ -60,4 +60,126 @@ Einige Beispiele, was man damit machen kann:
 
 Weitere Informationen zum Package `wikipedia` findet man auf [PyPi.org](https://pypi.org/project/wikipedia/).
 
+## Weitere APIs mit requests
+Eine REST API ist also kurz gesagt eine Webadresse (Endpoint), über die man standardisiert Daten beziehen (oder anbieten) kann. Für die Kommunikation werden dabei sogenannte **HTTTP requests** benutzt. Sie können folgende Aktionen enthalten:
+* **GET:** Daten beziehen von einer API
+* **POST:** Neue Daten an eine API schicken
+* **PUT:** existierende Daten ändern
+* **DELETE:** existierende Daten löschen
+
+Das Standardpaket, um in Python 3 mit APIs zu arbeiten, ist **requests**. Es wird mit `pip` installiert
+```
+$ pip install requests
+```
+und stellt die oben genannten Aktionen (_request_) get, put usw. zur Verfügung. Ein solcher _request_ liefert immer eine Antwort (_response_) zurück, u.a. ob der _request_ erfolgreich war. Beispiel:
+```
+>>> import requests
+>>> response = requests.get('https://www.vfll.de')
+>>> print(response)
+<Response [200]>
+```
+Der Rückgabe-Code 200 bedeutet: der _request_ war efolgreich, d.h. die angefragte Webseite existiert.  
+
+### Dino Ipsum API
+Eine nützliche Auflistung von APIs stellt die Webseite [RapidAPI](https://rapidapi.com) zur Verfügung, z.B. die **Dino Ipsum API**, die Platzhaltertext liefert. Die zugehörige Dokumentation auf RapidAPI listet die Parameter auf, die zusammen mit dem _request_ übergeben werden müssen, und generiert ein zugehöriges _Code Snippet_, das man direkt im eigenen Programm benutzen kann:
+```
+# dino_api.py
+
+import requests
+
+url = "https://alexnormand-dino-ipsum.p.rapidapi.com/"
+
+querystring = {"format":"text","words":"30","paragraphs":"1"}
+
+headers = {
+    'x-rapidapi-host': "alexnormand-dino-ipsum.p.rapidapi.com",
+    'x-rapidapi-key': "c3bd903d62mshe194ab08181a0a9p1b5c2fjsn0168bb4f01ea"
+    }
+
+response = requests.request("GET", url, headers=headers, params=querystring)
+
+print(response.text)
+```
+Die Ausführung des Skripts liefert zum Beispiel
+```
+$ python dino.py
+Strenusaurus Strenusaurus Sphenosuchus Wuerhosaurus Deinocheirus Zalmoxes Oviraptor Othnielia Rahonavis Ojoraptorsaurus Coloradia Sphenosaurus Iguanodon Haplocanthosaurus Dynamosaurus Brasileosaurus Blasisaurus Ekrixinatosaurus Muttaburrasaurus Leptoceratops Walgettosuchus Appalachiosaurus Edmontonia Dolichosuchus Gyposaurus Philovenator Sonidosaurus Dilophosaurus Vitakrisaurus Denversaurus.
+```
+Das Skripts definiert zunächst ein _dictionary_ namens `querystring`, das die Parameter enthält. Das _dictionary_ `headers` enthält die Angaben zum Server (Webadresse), der die API anbietet. Diese Angaben entnimmt man der Dokumentation der API. Schließlich wird per `requests.request` eine Anfrage an die API zusammengestellt, die die Aktion (GET), die API-Adresse (headers) und die Parameter (params) enthält.
+
+`response.text` enthält dann die Antwort der API.
+
+### Openthesaurus
+Die Webseite [OpenThesaurus](https://www.openthesaurus.de/about/api) stellt eine Synonym-API zur Verfügung, die XML- oder JSON-Daten zurückgibt. Die API ist auf der Webseite dokumentiert. Das folgende Skript übergibt die Variable `term` als Parameter an den Endpunkt und wählt als Format `application/json`:
+```
+# synonyme.py
+
+import requests
+
+term = "programmieren"
+
+response = requests.get("http://www.openthesaurus.de/synonyme/search",
+                                params={"q": term, "format": "application/json"})
+
+print(response.text)
+```
+`response.text` ist hier also ein JSON-Objekt
+```
+{"metaData":{"apiVersion":"0.2","warning":"ACHTUNG: Bitte vor ernsthafter Nutzung feedback@openthesaurus.de kontaktieren, um bei API-\u00c4nderungen informiert zu werden","copyright":"Copyright (C) 2019 Daniel Naber (www.danielnaber.de)","license":"Creative Commons Attribution-ShareAlike 4.0 or GNU LESSER GENERAL PUBLIC LICENSE Version 2.1","source":"https://www.openthesaurus.de","date":"Tue Jan 14 09:05:53 CET 2020"},"synsets":[{"id":888,"categories":["Computer"],"terms":[{"term":"coden"},{"term":"entwickeln"},{"term":"implementieren"},{"term":"programmieren"},{"term":"hacken","level":"umgangssprachlich"},{"term":"proggen","level":"umgangssprachlich"}]}]}
+```
+Das müssen wir noch etwas aufbereiten, und zwar mithilfe des Python-Pakets **json**, das zur Standardbibliothek von Python gehört und deshalb nicht extra installiert werden muss. Aber immer daran denken: Es muss zu Beginn eines Skripts importiert werden: `import json`. Dieses Paket stellt u.a. die Methode `loads()` zur Verfügung, mit der man einen String im JSON-Format in Python-Elemente umwandelt, in diesem Fall in eine Liste, die Dictionarys enthält. Schreibt man in der letzten Zeile des Skripts also
+```
+print(json.loads(response.text))
+```
+sieht die Anwort ähnlich aus, enthält aber nur noch Python-Elemente:
+```
+{'metaData': {'apiVersion': '0.2', 'warning': 'ACHTUNG: Bitte vor ernsthafter Nutzung feedback@openthesaurus.de kontaktieren, um bei API-Änderungen informiert zu werden', 'copyright': 'Copyright (C) 2019 Daniel Naber (www.danielnaber.de)', 'license': 'Creative Commons Attribution-ShareAlike 4.0 or GNU LESSER GENERAL PUBLIC LICENSE Version 2.1', 'source': 'https://www.openthesaurus.de', 'date': 'Tue Jan 14 09:07:58 CET 2020'}, 'synsets': [{'id': 888, 'categories': ['Computer'], 'terms': [{'term': 'coden'}, {'term': 'entwickeln'}, {'term': 'implementieren'}, {'term': 'programmieren'}, {'term': 'hacken', 'level': 'umgangssprachlich'}, {'term': 'proggen', 'level': 'umgangssprachlich'}]}]}
+```
+Dieses Dictionary enthält zum Key _synsets_ eine Liste [...], in der an erster Stelle (also Index 0) ein Dictionary steht, das zum Key _terms_ eine Liste von Dictionarys mit Synonymen anbietet. Der folgende Code liefert diese Liste:
+```
+response_dict = json.loads(response.text)
+
+synonym_dict_liste = response_dict["synsets"][0]["terms"]
+
+print(synonym_dict_liste)
+```
+Ergebnis:
+```
+[{'term': 'coden'}, {'term': 'entwickeln'}, {'term': 'implementieren'}, {'term': 'programmieren'}, {'term': 'hacken', 'level': 'umgangssprachlich'}, {'term': 'proggen', 'level': 'umgangssprachlich'}]
+```
+Der folgende Code iteriert über diese Liste und gibt für jeden Listeneintrag (also jedes Synonym-Dictionary) den Wert zum Key `'term'` aus:
+```
+for syn_dict in synonym_dict_liste:
+    print(syn_dict["term"])
+```
+Hier noch mal das ganze Skript:
+```
+# synonyme.py
+
+import requests, json
+
+term = "programmieren"
+
+response = requests.get("http://www.openthesaurus.de/synonyme/search",
+                                params={"q": term, "format": "application/json"})
+
+response_dict = json.loads(response.text)
+
+synonym_dict_liste = response_dict["synsets"][0]["terms"]
+
+print(f"Synonyme von Openthesaurus zu {term}:")
+
+for syn_dict in synonym_dict_liste:
+    print(syn_dict["term"])
+```
+mit der Ausgabe
+```
+Synonyme von Openthesaurus zu programmieren:
+coden
+entwickeln
+implementieren
+programmieren
+hacken
+proggen
+```
 
