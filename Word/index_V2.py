@@ -4,7 +4,7 @@ from docx import Document
 from lxml import etree
 import re
 
-doc = Document('Typische_Anwendungen.docx')
+doc = Document('Typische_Anwendungen_seitenumbruch-codes.docx')
 
 # setze die Seitenzahl auf 1
 seitenzahl = 1    
@@ -17,8 +17,8 @@ register = open("register.txt", "w")
 for p in doc.paragraphs:
     absatz_stil = p.style.name
     for run in p.runs:
-        # print(run.style.name)
-        if '<w:lastRenderedPageBreak/>' in run._element.xml:
+        # print(run._element.xml)
+        if '<END>' in run.text:
             seitenzahl += 1
 
         # print(run._element.xml)
