@@ -30,11 +30,20 @@ register_liste = []
 seitenzahl = 1
 
 def checkIndex(xml, seite, stil):
+    '''
+    prüft, ob der XML-String eines Runs einen XE-Eintrag enthält
+    falls ja: in register_liste eintragen
+    '''
     indexeintrag = re.search('(XE ")(.*)(")', xml)
     if indexeintrag:
         register_liste.append(indexeintrag.group(2) + "\t" + str(seite) + "((" + stil + "))")
 
 def checkPage(string, seitenzahl):
+    '''
+    prüft ob der run.text-String <END> enthält
+    falls ja: seitenzahl um 1 erhöhen
+    neue Seitenzahl zurückgeben
+    ''' 
     if '<END>' in string:
         seitenzahl += 1
     return seitenzahl

@@ -47,7 +47,7 @@ Python kann kostenlos für Windows, OS X und Linux heruntergeladen werden. Zur Z
 
 Auf [Python.org](https://python.org) findet man unter _Downloads_ Python für alle Betriebssysteme, sowohl für alte 32-bit- als auch für 64-bit-Rechner (alles, was nach 2007 gekauft wurde, sollte ein 64-bit-Rechner sein). Für Windows sollte es in der Regel also funktionieren, den aktuellen Python-3-Installer (_Latest Python 3 Release_) zu downloaden, auszuführen und den Installationsanweisungen zu folgen. Die Default-Einstellungen können übernommen werden. Man sollte darauf achten, dass die Option _Add Python 3.X to your PATH_ angeklickt ist.
 
-![Screenshot der Windows-Downloadseite auf python.org](windows_install.png){width="50%"}
+![Screenshot der Windows-Downloadseite auf python.org](windows_install.png "Python für Windows downloaden")
 
 ### Installation auf einem Mac
 
