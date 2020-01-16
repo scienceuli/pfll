@@ -4,7 +4,7 @@ from docx import Document
 from lxml import etree
 import re
 
-doc = Document('test_05.docx')
+doc = Document('Typische_Anwendungen.docx')
 
 # setze die Seitenzahl auf 1
 seitenzahl = 1    
@@ -12,6 +12,8 @@ seitenzahl = 1
 indexeintraege_liste = []
 indexeintrag = ""
 index_flag = 0
+
+register = open("register.txt", "w")
 for p in doc.paragraphs:
     absatz_stil = p.style.name 
     for run in p.runs:
@@ -23,7 +25,7 @@ for p in doc.paragraphs:
             print("Indexeintrag gefunden")
             indexeintrag = ""
             
-        if run.style.name == "Indexeintrag":
+        if run.style.name == "df_xe_feld":
             index_flag = 1
             # print("run gefunden")
             # print(run._element.xml)
@@ -33,8 +35,13 @@ for p in doc.paragraphs:
                     indexeintrag = indexeintrag + tags.text
         else:
             if index_flag == 1:
-                print(indexeintrag, seitenzahl, f"(({absatz_stil}))")
+                register.write(indexeintrag)
+                register.write(str(seitenzahl))
+                register.write(f"(({absatz_stil}))")
+                register.write("\n")
                 index_flag = 0
+
+register.close()
         
 
             

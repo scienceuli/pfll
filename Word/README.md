@@ -7,7 +7,7 @@ $ pip install python-docx
 
 ## Lesen von Word-Dateien
 Das folgende Skript importiert das Modul **docx**, öffnet das Dokument _test\_01.docx_ als Objekt `doc` vom Typ `Document`, erzeugt eine Liste der Absätze und gibt die Länge dieser Elemente (also die Anzahl der Listen-Elemente) aus.
-Das erste Element (Index 0) dieser Liste ist der erste Absatz. Das Attribut `text` gibt den Text dieses Absatzes zurück.
+Das erste Element (Index 0) dieser Liste ist der erste Absatz. Die Methode `text` gibt den Text dieses Absatzes zurück.
 ```
 # zaehle_absaetze.py
 
@@ -24,7 +24,42 @@ text_erster_absatz = erster_absatz.text
 print(f"Das Dokument hat {anzahl_absaetze} Absätze.")
 print(f"Der erste Absatz lautet: {text_erster_absatz}")
 ```
-Das bedeutet: Das Paket **docx** stellt ein Objekt `docx.Document()` zur Verfügung, mit dem sich Word-Dateien öffnen lassen. Das Attribut `paragraphs` erstellt dann aus diesem Dokument eine Liste der Absätze. Das Element mit Index 0 in dieser Liste ist der erste Absatz. Seinen Textinhalt liefert das Attribut `text`.
+Das bedeutet: Das Paket **docx** stellt ein Objekt `docx.Document()` zur Verfügung, mit dem sich Word-Dateien öffnen lassen. Die Liste `paragraphs` enthält dann eine Liste der Absätze. Das Element mit Index 0 in dieser Liste ist der erste Absatz. Seinen Textinhalt liefert die Methode `text`.
+
+Wie lässt sich der Textinhalt eines Dokuments in einen String einlesen? Mithilfe der Liste `paragraphs` und der Methode `text`:
+```
+# word_to_string.py
+
+import docx
+
+d = docx.Document('test_01.docx') # Lese das Dokument ein
+
+gesamterText = [] # eine leere Liste, in die absatzweise der Textinhalt eines Dokuments kommt
+
+for para in d.paragraphs: # iteriere über alle Absätze 
+    gesamterText.append(para.text) # erweitere die Liste mit Text des Absatzes
+
+print('\n'.join(gesamterText)) # vereinige alle Elemente der Liste zu einem String mit Returns dazwischen
+```
+Da vorstellbar ist, dass ich diese Funktionalität öfter brauche, definiere ich sie besser als Funktion:
+```
+# word_to_string.py
+
+import docx
+
+def getText(file):
+    d = docx.Document(file) # Lese das Dokument ein
+    gesamterText = [] # eine leere Liste, in die absatzweise der Textinhalt eines Dokuments kommt
+    for para in d.paragraphs: # iteriere über alle Absätze 
+        gesamterText.append(para.text) # erweitere die Liste mit Text des Absatzes
+
+    return '\n'.join(gesamterText) # vereinige alle Elemente der Liste zu einem String mit Returns dazwischen
+
+print(getText('test_01.docx'))
+```
+Die Funktion `getText(file)` bekommt einen Dateinamen und gibt den Text-String zurück (`return '\n'.join(gesamterText)`).
+
+
 
 ## Formatierungen erkennen
 Ein Word-Dokument enthält Absatz- und Zeichenformatierungen. Letztere strukturieren ein Dokument innerhalb eines Absatzes, denn die Absatzteile mit einer durchgehenden Formatierungen bilden einen _Run_. Immer, wenn das Zeichenformat sich ändert, beginnt ein neuer _Run_. 
@@ -43,7 +78,7 @@ erster_absatz = liste_der_absaetze[0]
 for run in erster_absatz.runs:
     print(f"{run.style.name}: {run.text}\n")
 ```
-Das Attribut `runs` für einen Absatz liefert eine Liste der _Runs_ zurück. Die `for`-Schleife iteriert deshalb über alle _Runs_ innerhalb des Absatzes. 
+`runs` enthält für einen Absatz eine Liste der _Runs_. Die `for`-Schleife iteriert deshalb über alle _Runs_ innerhalb des Absatzes. 
 
 ## Formatierungen ändern
 Eine typische "Ungenauigkeit" in Word-Dokument: Zur Fett-Auszeichnung wird sowohl die Zeichenvorlage "Fett" (engl. "Strong") als auch die Zeicheneigenschaft "Fett" (engl. "bold") benutzt. Beide sind optisch nicht zu unterscheiden, strukturell aber verschiedene Dinge. Deshalb bauen wir uns ein Programm, das alle _Runs_ mit der Eigenschaft "bold" in _Runs_ mit dem Zeichenformat "Strong" umwandelt.
@@ -133,6 +168,8 @@ Kopiert man diese Zeilen z.B. nach Excel, werden die Überschriften aufgrund der
 Mögliche Erweiterung: Tritt dieser Fall auf (eine Überschriftenebene fehlt), soll eine Meldung ausgegeben werden. 
 
 ## Word und Seitenzahlen
+**Achtung:** Die Erfahrung mit Word zeigt, dass die im Folgenden beschriebene Vergabe der _Page Breaks_ während des Render-Vorgangs nicht zuverlässig erfolgt!
+
 Kann man mithilfe von **python-docx** die Seitenzahlen aus einem Word-Dokument ziehen? Die kurze Antwort: Nein, da Word die Seitenzahlen während des Render-Vorgangs erzeugt, wenn es den Text für die Darstellung am Monitor bzw. den Druck aufbereitet. _Aber_: Word schreibt in die XML-Daten an den Stellen, an denen beim letzten Render-Vorgang ein Page Break eingefügt wurde, das Element `<w:lastRenderedPageBreak>`. Und jetzt das coole: das Objekt `run._element.xml` gibt zu einem _Run_ das zugehörige  Element zurück. Wenn man also über alle _Runs_ eines Absatzes iteriert und auf das XML-Element `<w:lastRenderedPageBreak>` stößt, setzt man die Seitenzahl um 1 herauf.
 
 Das folgende Skript iteriert über alle Absätze eines Dokuments und vergleicht den Absatzstil mit dem Regulären Ausdruck `'Heading*'`. Findet es eine Überschrift, gibt sie den Text der Überschrift und die zugehörige Seitenzahl. Diese wiederum ändert sich um 1, wenn ein _Run_ das XML-Element  `<w:lastRenderedPageBreak>`  enthält:
@@ -174,6 +211,54 @@ Die Ausgabe:
 Überschrift 10 auf Seite: 2
 Überschrift 11 auf Seite: 2
 ```
+
+## Word-Dateien erzeugen
+Mithilfe des Moduls **python-docx** lassen sich auch docx-Dateien anlegen füllen. 
+
+Zunächst wird ein neues Dokument erzeugt:
+```
+import docx
+
+d = docx.Document()
+```
+Die Metbode `add_paragraph()` fügt diesem Objekt einen Absatz hinzu, die Methode `save()` speichert das Dokument unter einem beliebigen Namen:
+```
+d.add_paragraph('Hallo, dies ist ein Absatz.')
+d.add_paragraph('Und dies noch ein Absatz.')
+d.save('test22.docx')
+```
+Das Ergebnis:
+
+![Die angelegte Datei test22.docx.](test22.png "docx-Datei")
+
+Jetzt kann man z.B. dem zweiten Absatz noch einen _Run_ hinzufügen. Die Liste `paragraphs`enthält ja die Absätze des Dokuments, und der der zweite Absatz hat den Index 1 (die Zählung beginnt immer bei 0). Also:
+```
+p = d.paragraphs[1]
+p.add_run('Ein besonders schöner Absatz!')
+```
+Der zweite Absatz hat jetzt also zwei _Runs_, die in der Liste `runs` abgespeichert sind. Der neue _Run_ hat den Index 1. Wir können ihm jetzt nich die Eigenschaft `bold` mitgeben:
+```
+p.runs[1].bold = True
+```
+Ergebnis:
+
+!['Erweiterte docx-Datei mit zusätzlichem Run'](test22_2.png "Erweitertes docx")
+
+**Hinweis:** _Runs_ können auf diese Weise leider nur am Ende eines Absatzes eingefügt werden. 
+
+Einem Absatz oder _Run_ kann ich auch einen Absatzstil geben:
+```
+p = d.paragraphs[0]
+p.style = 'Headline 2'
+```
+Ergebnis:
+
+!['Absatz mit Heading-Stil'](test22_3.png "Absatz mit Stil")
+
+
+
+
+
 
 
 
