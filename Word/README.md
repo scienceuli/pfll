@@ -255,6 +255,65 @@ Ergebnis:
 
 !['Absatz mit Heading-Stil'](test22_3.png "Absatz mit Stil")
 
+## Word-Templates
+
+Jedes Word-Dokument kann _Felder_ enthalten, die automatisch oder aus einer Datenquelle gefüllt werden. Das geht auch mit Python und **python-docx**! Für das Templating mit docx-Dateien gibt es sogar weitere Python-Module, doch wir nutzen ein einfaches Suchen+Ersetzen von bestimmten Schlüsselbegriffen im Wort-Template.
+
+Unser einfaches Word-Template `template.docx` sieht so aus:
+
+!["Word-Template"](template.png)
+
+Es enthält vier "Felder" (Muster): {{Ort}}, {{Datum}}, {{Adressat}} und {{Absender}}.
+
+Unser Skript soll nun diese Felder ersetzen mit bestimmten Daten und als eigenes Word-Dokument abspeichern. Es gibt mehrere Möglichkeiten, diesen Workflow zu programmieren. Das folgende Skript definiert vier Variablen `ort, datum, absender, adressat` 
+. Sie enthalten die Strings, die für die Muster im Template-File eingesetzt werden sollen. Das Dictionary `template_dict` definiert die Zuordnung:
+```
+template_dict = {"{{Adressat}}": adressat, "{{Absender}}": absender, "{{Datum}}": datum, "{{Ort}}": ort}
+```
+Jedes Element dieses Dictionaries enthält ein Schlüssel-Wert-Paar aus Muster und zugehöriger Variable.
+
+Anschließend wird das Template als Objekt `doc` einglesen und über alle Absätze (`para`) von `doc` iteriert. Die Methode `str.replace()` ersetzt nun im übergebenen String (`para.text`) einen Such-String mit einem Ersetze-String. Als Such-Strings werden dabei alle _Keys_ (Schlüssel) des Dictionaries benutzt, als Ersetze-Strings die zugehörigen _Values_ (Werte). Für jeden Absatz-Text geht man also das Dictionary von vorne bis hinten durch und ersetzt jedes Vorkommen eine _Keys_ durch seinen _Value_. Mit diesem String inklusive Ersetzungen wird der alte String `para.text` überschrieben. Fertig! Am Ende wird das Objekt `doc` unter neuem Namen abgespeichert.
+
+Das ganze Skript:
+```
+# word_template.py
+
+import docx
+import datetime
+
+# Absender und Adressat
+absender = "Ulrich"
+adressat = "Walter"
+
+# Datum und Ort
+now = datetime.datetime.now()
+datum = now.strftime("%d.%m.%Y")
+ort = "Frickingen"
+
+# Dictionary mit Muster und Variablen
+template_dict = {"{{Adressat}}": adressat, "{{Absender}}": absender, "{{Datum}}": datum, "{{Ort}}": ort}
+
+# Einlesen des Templates
+doc = docx.Document('template.docx')
+
+# Iteration über alle Absätze
+for para in doc.paragraphs:
+    for key in template_dict:  # Iteration über Dictionary
+        para.text = str.replace(para.text, key, template_dict[key])
+
+# Abspeichern unter neuem Namen
+doc.save("rechnung.docx")
+```
+Man hätte die Suche/Ersetze-Aktion auch mit vier if-Abfragen `if "{{Ort}}" in para.text: para.text = str.replace(...)` usw. lösen können, aber das wäre deutlich aufwendiger.
+
+_Hinweis_: Das Python-Standardmodeul _datetime_ liefert das gleichnameige Objekt `datetime`, dessen Methode `now()` aktuelle Uhrzeit und aktuelles Datum in mehreren Variablen (d, m, Y usw.) liefert. Die Methode `strftime()` macht daraus einen formatierten String.  
+
+Das neue Dokument _rechnung.docx_ sieht nun so aus:
+
+!["Generierte Word-Datei"](rechnung.png)
+
+
+
 
 
 
