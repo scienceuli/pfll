@@ -229,7 +229,7 @@ d.save('test22.docx')
 ```
 Das Ergebnis:
 
-![Die angelegte Datei test22.docx.](test22.png "docx-Datei")
+![Die angelegte Datei test22.docx.](images/test22.png "docx-Datei")
 
 Jetzt kann man z.B. dem zweiten Absatz noch einen _Run_ hinzufügen. Die Liste `paragraphs`enthält ja die Absätze des Dokuments, und der der zweite Absatz hat den Index 1 (die Zählung beginnt immer bei 0). Also:
 ```
@@ -242,7 +242,7 @@ p.runs[1].bold = True
 ```
 Ergebnis:
 
-!['Erweiterte docx-Datei mit zusätzlichem Run'](test22_2.png "Erweitertes docx")
+!['Erweiterte docx-Datei mit zusätzlichem Run'](images/test22_2.png "Erweitertes docx")
 
 **Hinweis:** _Runs_ können auf diese Weise leider nur am Ende eines Absatzes eingefügt werden. 
 
@@ -253,7 +253,7 @@ p.style = 'Headline 2'
 ```
 Ergebnis:
 
-!['Absatz mit Heading-Stil'](test22_3.png "Absatz mit Stil")
+!['Absatz mit Heading-Stil'](images/test22_3.png "Absatz mit Stil")
 
 ## Word-Templates
 
@@ -261,7 +261,7 @@ Jedes Word-Dokument kann _Felder_ enthalten, die automatisch oder aus einer Date
 
 Unser einfaches Word-Template `template.docx` sieht so aus:
 
-!["Word-Template"](template.png)
+!["Word-Template"](images/template.png)
 
 Es enthält vier "Felder" (Muster): {{Ort}}, {{Datum}}, {{Adressat}} und {{Absender}}.
 
@@ -310,7 +310,7 @@ _Hinweis_: Das Python-Standardmodeul _datetime_ liefert das gleichnameige Objekt
 
 Das neue Dokument _rechnung.docx_ sieht nun so aus:
 
-!["Generierte Word-Datei"](rechnung.png)
+!["Generierte Word-Datei"](images/rechnung.png)
 
 
 
