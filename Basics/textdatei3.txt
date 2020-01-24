@@ -1,0 +1,2 @@
+Dies ist die erste Zeile der neuen Datei!
+Dies ist die zweite Zeile der neuen Datei!
