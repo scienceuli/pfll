@@ -371,7 +371,7 @@ Loading .env environment variables...
 
 ## Workflows automatisieren mit Python
 * [Basics](Basics/README.md)
-* Arbeiten mit Dateien und Verzeichnissen ((folgt))
+* [Arbeiten mit Dateien und Verzeichnissen](Basics/DATEIEN_UND_VERZEICHNISSE.md)
 * [Arbeiten mit Word-Dateien](Word/README.md)
 * Arbeiten mit Pdfs ((folgt))
 * Arbeiten mit Excel ((folgt))
