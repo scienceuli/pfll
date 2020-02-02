@@ -2,6 +2,7 @@
 
 import requests
 
+
 url = "https://community-open-weather-map.p.rapidapi.com/weather"
 
 querystring = {"callback":"test","id":"2172797","units":"%22metric%22 or %22imperial%22","mode":"xml%2C html","q":"Stuttgart"}

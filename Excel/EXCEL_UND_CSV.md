@@ -110,10 +110,10 @@ In Excel kann man Tabellenblätter mit einem `SVERWEIS(...)` verknüpfen. Ein ty
 
 * Tabelleblatt 1 enthält Projekte, die Kundennummern zugeordnet sind:
   
-  ![Tabellenblatt 1](./sheet1.png)
+  ![Tabellenblatt 1](./images/sheet1.png)
 * Tabellenblatt 2 enthält Kundendaten zu den Kundennummern:
 
-  ![Tabellenblatt 2](./sheet2.png)
+  ![Tabellenblatt 2](./images/sheet2.png)
 
 Um jetzt in Excel im Tabellenblatt 1 in Spalte C den Firmennamen zu platzieren, würde man im Feld C2 einen _S-Verweis_ von Feld B2 auf die gesamte Tabelle in Tabellenblatt 2 anlegen, wobei Spalte 2 in Tabellenblatt 1 abgezeigt werden soll: 
 ```
@@ -249,7 +249,7 @@ $ pip install openpyxl
 
 Anhand der kleinen Beispieldatei _beispiel.xlsx_ wird der grunsätzliche Ablauf gezeigt:
 
-![Beispieldatei](./beispiel.png)
+![Beispieldatei](./images/beispiel.png)
 
 1. Excel-Datei einlesen:
    ```

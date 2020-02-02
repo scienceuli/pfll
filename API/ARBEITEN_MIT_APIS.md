@@ -183,3 +183,30 @@ hacken
 proggen
 ```
 
+### Openwaethermap
+[Openweathermap.org](openweathermap.org) bietet API-Schnittstellen an, für die man sich kostenlos auf der Webseite registrieren muss, um einen _API-Key_ zu bekommen (wird per E-Mail zugeschickt). Um zum Beispiel die Wetterdaten von Frickingen abzufragen, muss der API-Call so aussehen:
+```
+url = 'https://api.openweathermap.org/data/2.5/weather?q=Frickingen,de&units=metric&APPID=cd745...'
+>>> r = requests.get(url)
+>>> r.json()
+{'coord': {'lon': 9.27, 'lat': 47.82}, 'weather': [{'id': 803, 'main': 'Clouds', 'description': 'broken clouds', 'icon': '04d'}], 'base': 'stations', 'main': {'temp': 4.97, 'feels_like': -3.88, 'temp_min': 2.22, 'temp_max': 7, 'pressure': 1005, 'humidity': 70}, 'visibility': 10000, 'wind': {'speed': 9.8, 'deg': 220}, 'clouds': {'all': 75}, 'dt': 1580217158, 'sys': {'type': 1, 'id': 1310, 'country': 'DE', 'sunrise': 1580194554, 'sunset': 1580228121}, 'timezone': 3600, 'id': 6556040, 'name': 'Frickingen', 'cod': 200}
+```
+Hinweis: Der API Key wurde hier nicht vollständig dargestellt. Mit diesem JSON-Objekt könnte man jetzt weiterarbeiten, z.B. den Wert zu den Keys _main_ und _temp_  (das ist die aktuelle Temperatur) ausgeben:
+```
+>>> print("aktuelle Temp.: " + str(r.json()['main']['temp']) + " °C")
+aktuelle Temp.: 4.97 °C
+```
+Die Verwendung von `str()` ist nötig, weil `r.json()['main']['temp']` eine Zahl ist und erst in einen String umgewandelt werden muss, um sie im Printbefehl verwenden zu können.
+
+Die Zeitangaben (z.B. _sunrise_) werden übrigens in Sekunden seit dem Beginn der _UNIX-Epoche_ am 1.1.1970 ausgeben. Das Python-Standardmodul **time** liefert eine Reihe von Methode, solche Zeitangaben zu handeln. So liefert `ctime()` eine lesbare Darstellung:
+```
+>>> sunset = r.json()['sys']['sunset']
+>>> sunset
+1580228121
+>>> from time import ctime
+>>> ctime(sunset)
+'Tue Jan 28 17:15:21 2020'
+```
+
+
+

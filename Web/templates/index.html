@@ -11,7 +11,14 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-12"><h2>Hallo {{name}}!</h2></div>
+            <div class="col-12"><h2>Vfll Links</h2></div>
+            <div>
+                {% for data in data_list %}
+                <p><a href="{{ data }}">{{ data }}</a></p>
+                {% endfor %}
+
+            </div>
+            
         </div>
     </div>
 

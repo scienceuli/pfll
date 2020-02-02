@@ -370,13 +370,15 @@ Loading .env environment variables...
 
 
 ## Workflows automatisieren mit Python
-* [Basics](Basics/README.md)
+* [Basics](Basics/BASICS.md)
+* [Strings bearbeiten](Basics/STRINGS_BEARBEITEN.md)
+* Regular Expressions ((folgt))
 * [Arbeiten mit Dateien und Verzeichnissen](Basics/DATEIEN_UND_VERZEICHNISSE.md)
-* [Arbeiten mit Word-Dateien](Word/README.md)
+* [Arbeiten mit Word-Dateien](Word/ARBEITEN_MIT_WORD.md)
 * Arbeiten mit Pdfs ((folgt))
-* Arbeiten mit Excel ((folgt))
+* [Arbeiten mit Excel und CSV](Excel/EXCEL_UND_CSV.md)
 * [GUI](GUI/SimpleGUI.md)
-* [Arbeiten mit Schnittstellen](API/README.md)
+* [Arbeiten mit Schnittstellen](API/ARBEITEN_MIT_APIS.md)
 * Mit wenigen Klicks zum eigenen Blog ((folgt))
 * Web-Anwendungen ((folgt))
 * ...
