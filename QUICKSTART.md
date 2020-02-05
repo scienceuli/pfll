@@ -21,7 +21,7 @@ Das $ steht für den Prompt der Eingabeaufforderung, es wird nicht mit eingegebe
   ```
   Dann Python 3:
   ```
-  $ brew install pythgon3
+  $ brew install python3
   ```
 
 * **Linux:** Python 2 ist in der Regel vorhanden, Python 3 nicht. Installation:
@@ -31,7 +31,7 @@ Das $ steht für den Prompt der Eingabeaufforderung, es wird nicht mit eingegebe
 * **Windows 10:** Von [python.org](https://www.python.org/downloads/) herunterladen und Installer ausführen. **Wichtig:** Zwei Check-Boxes:  1. "Für alle Nutzer" (o.ä.) **nicht auswählen**, 2. "dem Pfad hinzufügen" (o.ä.) **auswählen**.
 
 ## Installation testen
-Im CLI `python3`(Linux, Mac OS) bzw. `python` ausführen. Es sollte die _Python Shell_ gestartet werden:
+Im CLI `python3`(Linux, Mac OS) bzw. `python` (Windows 10) ausführen. Es sollte die _Python Shell_ gestartet werden:
 ```
 $ python
 ...
