@@ -370,7 +370,7 @@ Loading .env environment variables...
 
 
 ## Workflows automatisieren mit Python
-* [Qickstart](QUICKSTART.md)
+* [Quickstart](QUICKSTART.md)
 * [Basics](Basics/BASICS.md)
 * [Strings bearbeiten](Basics/STRINGS_BEARBEITEN.md)
 * Regular Expressions ((folgt))
