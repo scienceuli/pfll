@@ -2,8 +2,10 @@
 
 name = "Walter"
 
-if name == 'Ulrich':
-    print('Hallo Ulrich')
-    print('Alles klar?')
+if name == "Ulrich":
+    print("Hallo Ulrich")
+    print("Alles klar?")
 
-print('Fertig.')
+print("Fertig.")
+
+a = 2
