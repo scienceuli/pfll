@@ -262,7 +262,7 @@ Unser einfaches Word-Template `template.docx` sieht so aus:
 
 !["Word-Template"](images/template.png)
 
-Es enthält vier "Felder" (Muster): {{Ort}}, {{Datum}}, {{Adressat}} und {{Absender}}.
+Es enthält vier "Felder" (Muster): {Ort}, {Datum}, {Adressat} und {Absender}.
 
 Unser Skript soll nun diese Felder ersetzen mit bestimmten Daten und als eigenes Word-Dokument abspeichern. Es gibt mehrere Möglichkeiten, diesen Workflow zu programmieren. Das folgende Skript definiert vier Variablen `ort, datum, absender, adressat` 
 . Sie enthalten die Strings, die für die Muster im Template-File eingesetzt werden sollen. Das Dictionary `template_dict` definiert die Zuordnung:
