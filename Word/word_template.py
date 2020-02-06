@@ -13,10 +13,15 @@ datum = now.strftime("%d.%m.%Y")
 ort = "Frickingen"
 
 # Dictionary mit Muster und Variablen
-template_dict = {"{{Adressat}}": adressat, "{{Absender}}": absender, "{{Datum}}": datum, "{{Ort}}": ort}
+template_dict = {
+    "{Adressat}": adressat,
+    "{Absender}": absender,
+    "{Datum}": datum,
+    "{Ort}": ort,
+}
 
 # Einlesen des Templates
-doc = docx.Document('template.docx')
+doc = docx.Document("template.docx")
 
 # Iteration über alle Absätze
 for para in doc.paragraphs:
@@ -25,6 +30,4 @@ for para in doc.paragraphs:
 
 # Abspeichern unter neuem Namen
 doc.save("rechnung.docx")
-
-
 

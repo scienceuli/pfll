@@ -267,7 +267,7 @@ Es enthält vier "Felder" (Muster): {{Ort}}, {{Datum}}, {{Adressat}} und {{Absen
 Unser Skript soll nun diese Felder ersetzen mit bestimmten Daten und als eigenes Word-Dokument abspeichern. Es gibt mehrere Möglichkeiten, diesen Workflow zu programmieren. Das folgende Skript definiert vier Variablen `ort, datum, absender, adressat` 
 . Sie enthalten die Strings, die für die Muster im Template-File eingesetzt werden sollen. Das Dictionary `template_dict` definiert die Zuordnung:
 ```python
-template_dict = {"{{Adressat}}": adressat, "{{Absender}}": absender, "{{Datum}}": datum, "{{Ort}}": ort}
+template_dict = {"{Adressat}": adressat, "{Absender}": absender, "{Datum}": datum, "{Ort}": ort}
 ```
 Jedes Element dieses Dictionaries enthält ein Schlüssel-Wert-Paar aus Muster und zugehöriger Variable.
 
@@ -290,7 +290,7 @@ datum = now.strftime("%d.%m.%Y")
 ort = "Frickingen"
 
 # Dictionary mit Muster und Variablen
-template_dict = {"{{Adressat}}": adressat, "{{Absender}}": absender, "{{Datum}}": datum, "{{Ort}}": ort}
+template_dict = {"{Adressat}": adressat, "{Absender}": absender, "{Datum}": datum, "{Ort}": ort}
 
 # Einlesen des Templates
 doc = docx.Document('template.docx')
@@ -303,7 +303,7 @@ for para in doc.paragraphs:
 # Abspeichern unter neuem Namen
 doc.save("rechnung.docx")
 ```
-Man hätte die Suche/Ersetze-Aktion auch mit vier if-Abfragen `if "{{Ort}}" in para.text: para.text = str.replace(...)` usw. lösen können, aber das wäre deutlich aufwendiger.
+Man hätte die Suche/Ersetze-Aktion auch mit vier if-Abfragen `if "{Ort}" in para.text: para.text = str.replace(...)` usw. lösen können, aber das wäre deutlich aufwendiger.
 
 _Hinweis_: Das Python-Standardmodeul _datetime_ liefert das gleichnameige Objekt `datetime`, dessen Methode `now()` aktuelle Uhrzeit und aktuelles Datum in mehreren Variablen (d, m, Y usw.) liefert. Die Methode `strftime()` macht daraus einen formatierten String.  
 
