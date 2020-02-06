@@ -1,6 +1,6 @@
 # Word-Dateien bearbeiten
 Mit Python kann man .docx-Dateien lesen und bearbeiten. Es gibt ein eigenes Modul dafür: **docx**. Es wird mit `pip` (oder `pipenv`) installiert:
-```
+```python
 $ pip install python-docx
 ```
 (Hinweis: Es muss `python-docx` installiert werden, in einem Python-Programm wird aber `docx` importiert.)
@@ -8,7 +8,7 @@ $ pip install python-docx
 ## Lesen von Word-Dateien
 Das folgende Skript importiert das Modul **docx**, öffnet das Dokument _test\_01.docx_ als Objekt `doc` vom Typ `Document`, erzeugt eine Liste der Absätze und gibt die Länge dieser Elemente (also die Anzahl der Listen-Elemente) aus.
 Das erste Element (Index 0) dieser Liste ist der erste Absatz. Die Methode `text` gibt den Text dieses Absatzes zurück.
-```
+```python
 # zaehle_absaetze.py
 
 import docx
@@ -20,14 +20,13 @@ anzahl_absaetze = len(liste_der_absaetze)
 erster_absatz = liste_der_absaetze[0]
 text_erster_absatz = erster_absatz.text
 
-
 print(f"Das Dokument hat {anzahl_absaetze} Absätze.")
 print(f"Der erste Absatz lautet: {text_erster_absatz}")
 ```
 Das bedeutet: Das Paket **docx** stellt ein Objekt `docx.Document()` zur Verfügung, mit dem sich Word-Dateien öffnen lassen. Die Liste `paragraphs` enthält dann eine Liste der Absätze. Das Element mit Index 0 in dieser Liste ist der erste Absatz. Seinen Textinhalt liefert die Methode `text`.
 
 Wie lässt sich der Textinhalt eines Dokuments in einen String einlesen? Mithilfe der Liste `paragraphs` und der Methode `text`:
-```
+```python
 # word_to_string.py
 
 import docx
@@ -42,7 +41,7 @@ for para in d.paragraphs: # iteriere über alle Absätze
 print('\n'.join(gesamterText)) # vereinige alle Elemente der Liste zu einem String mit Returns dazwischen
 ```
 Da vorstellbar ist, dass ich diese Funktionalität öfter brauche, definiere ich sie besser als Funktion:
-```
+```python
 # word_to_string.py
 
 import docx
@@ -65,7 +64,7 @@ Die Funktion `getText(file)` bekommt einen Dateinamen und gibt den Text-String z
 Ein Word-Dokument enthält Absatz- und Zeichenformatierungen. Letztere strukturieren ein Dokument innerhalb eines Absatzes, denn die Absatzteile mit einer durchgehenden Formatierungen bilden einen _Run_. Immer, wenn das Zeichenformat sich ändert, beginnt ein neuer _Run_. 
 
 Das folgende Skript geht die _Runs_ des ersten Absatzes aus dem Dokument _test\_02.docx_ durch und zeigt für jeden _Run_ den Namen des Zeichenformats (`run.style.name`) und den Textinhalt des _Run_ an (`run.text`):
-```
+```python
 # zeichenformatierungen.py
 
 import docx
@@ -84,7 +83,7 @@ for run in erster_absatz.runs:
 Eine typische "Ungenauigkeit" in Word-Dokument: Zur Fett-Auszeichnung wird sowohl die Zeichenvorlage "Fett" (engl. "Strong") als auch die Zeicheneigenschaft "Fett" (engl. "bold") benutzt. Beide sind optisch nicht zu unterscheiden, strukturell aber verschiedene Dinge. Deshalb bauen wir uns ein Programm, das alle _Runs_ mit der Eigenschaft "bold" in _Runs_ mit dem Zeichenformat "Strong" umwandelt.
 
 Das folgende Skript verarbeitet den ersten Absatz des Dokuments _test\_03.docx_. Er enthält sowohl das Zeichenformat "Strong" als auch die Zeicheneigenschaft "bold". Das Skript iteriert über alle Runs und prüft, ob der jeweilige _Run_ die Eigenschaft "bold" hat (`if run.bold`). Wenn diese Abfrage _True_ zurückgibt (also zutrifft), wird diesem _Run_ das Zeichenformat "Strong" zugewiesen (`run.style = 'Strong'`). Nach Beendigung der Schleife wird das modifizierte Dokument unter anderem Namen abgespeichert.
-```
+```python
 # bold_versus_fett.py
 
 import docx
@@ -110,17 +109,17 @@ Beispiel: Das Dokument _test\_04.docx_ enthält einige Überschriften (_Heading 
 Jetzt sollen uns aber nur die Absatzstile _Heading 1_, _Heading 2_ usw. interessieren. Um diese aus allen Absatzstillen herauszufischen, definieren wir einen sog. _Regulären Ausdruck_ (_Regular Expression_), mit dem wir die Absatzstile vergleichen. Für die Arbeit mit regulären Ausdrücken hält Python die Standardbibliothek **re** bereit. Diese müssen wir zwar nicht installieren, aber zu Beginn mit `import re` importieren.
 
 Der reguläre Ausdruck, der auf alle Überschriftenstile passt, lautet
-```
+```python
 h = re.compile('(Heading)(\s)(\d+)')
 ```
 Also ein String, der sich aus `'Heading'`, einem Leerzeichen `\s` und einer oder mehreren Ziffern `\d+` zusammensetzt. Das `\d` steht dabei für eine Ziffer (_digit_) und das Pluszeichen steht  für "eine oder mehrere". Die runden Klammern gruppieren den regulären Ausdruck, das vereinfacht den Verweis auf Teile des gesuchten Ausdrucks (s.u.).
 
 Wenn unser Skript auf eine Überschrift stößt, soll es diese Überschrift in eine Textdatei, die wir anlegen bzw. öffnen, schreiben. Wir suchen also einen _Match_ zwischen unserem regulären Ausdruck und dem Absatzstil, über den gerade iteriert wird:
-```
+```python
 m = h.match(absatz.style.name)
 ``` 
 Die Variable `m` ist also jetzt keine Zahl oder String, sondern ein Wahrheitswert: Passt der Match, dann _True_, passt er nicht, dann _False_. Wir interessieren uns nur für _True_:
-```
+```python
 if m:
     out.write(absatz.style.name)
 ```
@@ -129,7 +128,7 @@ Um die Ausgabe noch ein wenig schöner zu machen, fügen wir  noch einen Zeilenu
 Mit dieser Zahl möchten wir anschließend rechnen, d.h. wir wandeln sie per `int()` in eine Integerzahl um. Wir sagen nämlich: Füge vor jeder Zeile so viele Tabs ein, wie es der Überschriftenhiearchie entspricht. Bzw. genauer: ziehe noch 1 ab, da vor einer Überschrift mit Stil _Heading 1_ kein Tab, stehen soll, vor einer mit _Heading 2_ ein Tab usw.
 
 Das gesamt Skript siehe also wie folgt aus:
-```
+```python
 # headlines.py
 
 import docx
@@ -155,7 +154,7 @@ with open('test_04_headlines.txt', 'w') as out:
             out.write(absatz.style.name + "\n")
 ```
 Es schreibt folgende Zeilen in die Datei _test\_04\_headlines.txt_:
-```
+```python
 Heading 1
 	Heading 2
 			Heading 4
@@ -173,12 +172,12 @@ Mögliche Erweiterung: Tritt dieser Fall auf (eine Überschriftenebene fehlt), s
 Kann man mithilfe von **python-docx** die Seitenzahlen aus einem Word-Dokument ziehen? Die kurze Antwort: Nein, da Word die Seitenzahlen während des Render-Vorgangs erzeugt, wenn es den Text für die Darstellung am Monitor bzw. den Druck aufbereitet. _Aber_: Word schreibt in die XML-Daten an den Stellen, an denen beim letzten Render-Vorgang ein Page Break eingefügt wurde, das Element `<w:lastRenderedPageBreak>`. Und jetzt das coole: das Objekt `run._element.xml` gibt zu einem _Run_ das zugehörige  Element zurück. Wenn man also über alle _Runs_ eines Absatzes iteriert und auf das XML-Element `<w:lastRenderedPageBreak>` stößt, setzt man die Seitenzahl um 1 herauf.
 
 Das folgende Skript iteriert über alle Absätze eines Dokuments und vergleicht den Absatzstil mit dem Regulären Ausdruck `'Heading*'`. Findet es eine Überschrift, gibt sie den Text der Überschrift und die zugehörige Seitenzahl. Diese wiederum ändert sich um 1, wenn ein _Run_ das XML-Element  `<w:lastRenderedPageBreak>`  enthält:
-```
+```python
 seitenzahl += 1
 ```
 Diese Zeile ist die Kurzform von `seitenzahl = seitenzahl + 1`.
 
-```
+```python
 # seitenzahlen.py
 
 from docx import Document
@@ -198,7 +197,7 @@ for p in doc.paragraphs:
             seitenzahl += 1
 ```
 Die Ausgabe:
-```
+```python
 Überschrift 1 auf Seite: 1
 Überschrift 2 auf Seite: 1
 Überschrift 5 auf Seite: 1
@@ -216,13 +215,13 @@ Die Ausgabe:
 Mithilfe des Moduls **python-docx** lassen sich auch docx-Dateien anlegen füllen. 
 
 Zunächst wird ein neues Dokument erzeugt:
-```
+```python
 import docx
 
 d = docx.Document()
 ```
 Die Metbode `add_paragraph()` fügt diesem Objekt einen Absatz hinzu, die Methode `save()` speichert das Dokument unter einem beliebigen Namen:
-```
+```python
 d.add_paragraph('Hallo, dies ist ein Absatz.')
 d.add_paragraph('Und dies noch ein Absatz.')
 d.save('test22.docx')
@@ -232,12 +231,12 @@ Das Ergebnis:
 ![Die angelegte Datei test22.docx.](images/test22.png "docx-Datei")
 
 Jetzt kann man z.B. dem zweiten Absatz noch einen _Run_ hinzufügen. Die Liste `paragraphs`enthält ja die Absätze des Dokuments, und der der zweite Absatz hat den Index 1 (die Zählung beginnt immer bei 0). Also:
-```
+```python
 p = d.paragraphs[1]
 p.add_run('Ein besonders schöner Absatz!')
 ```
 Der zweite Absatz hat jetzt also zwei _Runs_, die in der Liste `runs` abgespeichert sind. Der neue _Run_ hat den Index 1. Wir können ihm jetzt nich die Eigenschaft `bold` mitgeben:
-```
+```python
 p.runs[1].bold = True
 ```
 Ergebnis:
@@ -247,7 +246,7 @@ Ergebnis:
 **Hinweis:** _Runs_ können auf diese Weise leider nur am Ende eines Absatzes eingefügt werden. 
 
 Einem Absatz oder _Run_ kann ich auch einen Absatzstil geben:
-```
+```python
 p = d.paragraphs[0]
 p.style = 'Headline 2'
 ```
@@ -267,7 +266,7 @@ Es enthält vier "Felder" (Muster): {{Ort}}, {{Datum}}, {{Adressat}} und {{Absen
 
 Unser Skript soll nun diese Felder ersetzen mit bestimmten Daten und als eigenes Word-Dokument abspeichern. Es gibt mehrere Möglichkeiten, diesen Workflow zu programmieren. Das folgende Skript definiert vier Variablen `ort, datum, absender, adressat` 
 . Sie enthalten die Strings, die für die Muster im Template-File eingesetzt werden sollen. Das Dictionary `template_dict` definiert die Zuordnung:
-```
+```python
 template_dict = {"{{Adressat}}": adressat, "{{Absender}}": absender, "{{Datum}}": datum, "{{Ort}}": ort}
 ```
 Jedes Element dieses Dictionaries enthält ein Schlüssel-Wert-Paar aus Muster und zugehöriger Variable.
@@ -275,7 +274,7 @@ Jedes Element dieses Dictionaries enthält ein Schlüssel-Wert-Paar aus Muster u
 Anschließend wird das Template als Objekt `doc` einglesen und über alle Absätze (`para`) von `doc` iteriert. Die Methode `str.replace()` ersetzt nun im übergebenen String (`para.text`) einen Such-String mit einem Ersetze-String. Als Such-Strings werden dabei alle _Keys_ (Schlüssel) des Dictionaries benutzt, als Ersetze-Strings die zugehörigen _Values_ (Werte). Für jeden Absatz-Text geht man also das Dictionary von vorne bis hinten durch und ersetzt jedes Vorkommen eine _Keys_ durch seinen _Value_. Mit diesem String inklusive Ersetzungen wird der alte String `para.text` überschrieben. Fertig! Am Ende wird das Objekt `doc` unter neuem Namen abgespeichert.
 
 Das ganze Skript:
-```
+```python
 # word_template.py
 
 import docx
