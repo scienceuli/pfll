@@ -373,7 +373,7 @@ Loading .env environment variables...
 * [Quickstart](QUICKSTART.md)
 * [Basics](Basics/BASICS.md)
 * [Strings bearbeiten](Basics/STRINGS_BEARBEITEN.md)
-* Regular Expressions ((folgt))
+* [Regular Expressions](Regex/REGEX.md)
 * [Arbeiten mit Dateien und Verzeichnissen](Basics/DATEIEN_UND_VERZEICHNISSE.md)
 * [Arbeiten mit Word-Dateien](Word/ARBEITEN_MIT_WORD.md)
 * [Arbeiten mit Pdfs](Pdf/ARBEITEN_MIT_PDFS.md)
