@@ -311,6 +311,49 @@ Das neue Dokument _rechnung.docx_ sieht nun so aus:
 
 !["Generierte Word-Datei"](images/rechnung.png)
 
+## Zipfiles
+Warum an dieser Stelle ein Abschnitt über Zipfiles? Weil Docx-Dateien Zipfiles sind. Das heißt: Methoden, die Python für die Behandlung von Zipfiles bereitstellt, lassen sich auch auf Word-Dateien anwenden.
+
+Das Modul aus der Python-Standardbibliothek für Zipfiles heißt **zipfile**.
+
+Zunächst kann man damit auflisten, was in einem Zipfiles, z.B. einer Word-Datei, zusammengepakt ist.
+```python
+>>> import zipfile
+>>> with zipfile.ZipFile('datei_mit_bild.docx') as zip:
+...     print(zip.namelist())
+... 
+['[Content_Types].xml', '_rels/.rels', 'word/_rels/document.xml.rels', 'word/document.xml', 'word/media/image1.jpeg', 'word/theme/theme1.xml', 'word/settings.xml', 'docProps/core.xml', 'docProps/app.xml', 'word/webSettings.xml', 'word/styles.xml', 'word/fontTable.xml']
+>>> 
+```
+**Hinweis:** Man muss die Endung der Word-Datei nicht ändern, das Modul **zipfile** erkennt auch eine Datei mit Endung ",docx" als Zipfile.
+
+Die `namelist` zeigt alle Dateien in der Zipdatei inklusive ihrem Pfad innerhalb der Zipdatei. Man sieht u.a., dass die Bilder in einem Word-Dokument immer im Verzeichnis _word/media_  abgelegt werden. 
+
+Daneben gibt es noch die `infolist()`, eine Liste sogenanter `ZipInfo`-Objekte, die verschiedene Informationen zu jeder Datei in der Zipdatei enthält, unter anderem den _filename_. Das kann man nutzen, um  die Bilder herauszuziehen, ohne ihren Pfad mitzukopieren. Z.B. mit folgendem Skript:
+```python
+# bilder_extrahieren.py
+
+import zipfile, os
+
+docx = "datei_mit_bild.docx"
+image_path = "bilder_aus_datei_mit_bild"
+
+if not image_path:
+    os.mkdir(image_path)
+
+with zipfile.ZipFile(docx) as zip:
+    print(zip.infolist())
+    for file in zip.infolist():
+        if file.filename.startswith("word/media"):
+            file.filename = os.path.basename(file.filename)
+            zip.extract(file, image_path)
+
+```
+Die Bilder sollen in den Ordner `image_path = "bilder_aus_datei_mit_bild"` extrahiert werden. Falls er nicht schon existiert (`if not image_path: ...`), wird er mithilfe der Methode `os.mkdir()` aus dem Modul **os** erzeugt.
+
+Die Schleife `for file in zip.infolist():...` iteriert über alle Files (genauer: alle _ZipInfos_ der Dateien) im der Zipdatei. Die Dateien, deren _filename_ mit _word/media_ beginnt, also in diesem Unterverzeichnis der Zipdatei liegen, werden extrahiert. Mit `file.filename = os.path.basename(file.filename)` wird der ganze Pfad des _filename_ durch den _basename_ des Pfads ersetzt. Das hat zur Folge, dass mit `zip.extract(file, image_path)` die Bilddatei ohne den Pfad _word/media_ in das Zielverzeichnis geschrieben wird.
+
+
 
 
 
