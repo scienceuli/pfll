@@ -329,17 +329,29 @@ Zunächst kann man damit auflisten, was in einem Zipfiles, z.B. einer Word-Datei
 
 Die `namelist` zeigt alle Dateien in der Zipdatei inklusive ihrem Pfad innerhalb der Zipdatei. Man sieht u.a., dass die Bilder in einem Word-Dokument immer im Verzeichnis _word/media_  abgelegt werden. 
 
-Daneben gibt es noch die `infolist()`, eine Liste sogenanter `ZipInfo`-Objekte, die verschiedene Informationen zu jeder Datei in der Zipdatei enthält, unter anderem den _filename_. Das kann man nutzen, um  die Bilder herauszuziehen, ohne ihren Pfad mitzukopieren. Z.B. mit folgendem Skript:
+Die `namelist()` ist also eine Liste aus Strings. 
+Daneben gibt es noch die `infolist()`, eine Liste sogenanter `ZipInfo`-Objekte, die verschiedene Informationen zu jeder Datei in der Zipdatei enthält, unter anderem den _filename_.
+`infolist()` ist also keine Liste von Strings, sondern eine Liste von Objekten. Das kann man nutzen, um  die Bilder herauszuziehen, ohne ihren Pfad mitzukopieren. Z.B. mit folgendem Skript:
 ```python
 # bilder_extrahieren.py
+
+"""
+extrahiert die Bilder aus einer Docx-Zipdatei mithilfe
+einer Iteration über die infolist()
+"""
 
 import zipfile, os
 
 docx = "datei_mit_bild.docx"
 image_path = "bilder_aus_datei_mit_bild"
 
-if not image_path:
+# Verzeichnis anlegen, in das die Bilde kommen
+# falls es noch nicht existiert
+
+try:
     os.mkdir(image_path)
+except FileExistsError:
+    print("Verzeichnis existiert bereits")
 
 with zipfile.ZipFile(docx) as zip:
     print(zip.infolist())
@@ -349,9 +361,43 @@ with zipfile.ZipFile(docx) as zip:
             zip.extract(file, image_path)
 
 ```
-Die Bilder sollen in den Ordner `image_path = "bilder_aus_datei_mit_bild"` extrahiert werden. Falls er nicht schon existiert (`if not image_path: ...`), wird er mithilfe der Methode `os.mkdir()` aus dem Modul **os** erzeugt.
+Die Bilder sollen in den Ordner `image_path = "bilder_aus_datei_mit_bild"` extrahiert werden. Falls er nicht schon existiert, wird er mithilfe der Methode `os.mkdir()` aus dem Modul **os** erzeugt. Solche Anweisungen "_Mache etwas, und falls es schiefgeht, sag mir was los ist_" programmiert man als `try ... except <Fehler> ...`.
 
 Die Schleife `for file in zip.infolist():...` iteriert über alle Files (genauer: alle _ZipInfos_ der Dateien) im der Zipdatei. Die Dateien, deren _filename_ mit _word/media_ beginnt, also in diesem Unterverzeichnis der Zipdatei liegen, werden extrahiert. Mit `file.filename = os.path.basename(file.filename)` wird der ganze Pfad des _filename_ durch den _basename_ des Pfads ersetzt. Das hat zur Folge, dass mit `zip.extract(file, image_path)` die Bilddatei ohne den Pfad _word/media_ in das Zielverzeichnis geschrieben wird.
+
+Man könnte auch über die `namelist()` iterieren, dann die gewünschte Datei innerhalb der Zipdatei öffnen und ins Zielverzeichnis kopieren. Zum Kopieren verwenden wir die Methode `copyfileobj()` aus dem Standard-Modul **shutil**:
+
+```python
+# bilder_extrahieren_V2.py
+"""
+extrahiert die Bilder aus einer Docx-Zipdatei mithilfe
+einer Iteration über die namelist()
+"""
+
+import zipfile, os, shutil
+
+docx = "datei_mit_bild.docx"
+image_path = "bilder_aus_datei_mit_bild"
+
+# Verzeichnis anlegen, in das die Bilde kommen
+# falls es noch nicht existiert
+
+try:
+    os.mkdir(image_path)
+except FileExistsError:
+    print("Verzeichnis existiert bereits")
+
+with zipfile.ZipFile(docx) as zip:
+    print(zip.namelist())
+    for file in zip.namelist():
+        if file.startswith("word/media"):
+            filename = os.path.basename(file)
+            source = zip.open(file)
+            target = open(os.path.join(image_path, filename), "wb")
+            with source, target:
+                shutil.copyfileobj(source, target)
+```
+
 
 
 
