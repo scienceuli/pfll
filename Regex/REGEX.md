@@ -184,7 +184,7 @@ lit_regex = re.compile(r"""(?P<zitat>\()        # ganzes Zitat
                            (?P<autor>.+?)       # Autor
                            \s
                            (?P<jahr>\d{4})      # Jahr
-                           \))""")
+                           \))""", re.VERBOSE)
 ```
 Das funktioniert nicht mit `findall()`. Aber mithilfe von `finditer()` kann man zunächste eine Liste von _Matchings_ erzeugen, über die man dann iterieren kann:
 ```python
@@ -204,6 +204,57 @@ Die benannten Gruppen in Regex lassen sich nutzen, um mit _backreferences_ zu ar
 >>> doppelt_regex.search(text).group()
 'noch noch'
 ```
+
+### Falsch geschriebene Wörter finden
+Die automatische Textanalyse ist ein aktuelles Forschungsgebiet. Wer sich dafür interessiert, sollte man nach _Textmining_, _NLTK_ etc. recherchieren.
+
+Hier nur ein einfaches Beispiel, wie man einen Text nach Wörtern untersucht, die wir in einer Liste falscher Schreibweisen gesammelt haben:
+```python
+>>> falsch_liste = ['nähmlich', 'wiederspiegeln', 'Kalrsruhe']
+```
+Damit wollen wir jetzt die Wörter in einem Text vergleichen. Die _Regex_ für ein einzelnes Wort ist recht einfach:
+```python
+>>> wort_regex = re.compile(r'\w+')
+```
+Damit zerlegen wir jetzt einen kleinen Text in Wörter:
+```python
+>>> text = 'Dann fuhren wir nähmlich nach Kalrsruhe und überlegten uns, was wir zu Abend essen.'
+>>> wort_liste = wort_regex.findall(text)
+>>> wort_liste
+['Dann', 'fuhren', 'wir', 'nähmlich', 'nach', 'Kalrsruhe', 'und', 'überlegten', 'uns', 'was', 'wir', 'zu', 'Abend', 'essen']
+```
+Jetzt vergleichen wir alle Wörter des Textes mit der Falsch-Liste:
+```
+>>> for wort in wort_liste:
+...     if wort in falsch_liste:
+...             print(f'falsches Wort gefunden: {wort}')
+... 
+falsches Wort gefunden: nähmlich
+falsches Wort gefunden: Kalrsruhe
+```
+Ein sehr einfaches Beispiel, aber es zeigt eine Möglichkeit, was sich eventuell machen lässt.
+
+Möglichwerweise interessant: [Website der HS Hannover](http://textmining.wp.hs-hannover.de/Korrektur.html)
+
+## Review of Regex Symbols
+
+| Symbol                   | Matches                                                      |
+| ------------------------ | ------------------------------------------------------------ |
+| `?`                      | zero or one of the preceding group.                          |
+| `*`                      | zero or more of the preceding group.                         |
+| `+`                      | one or more of the preceding group.                          |
+| `{n}`                    | exactly n of the preceding group.                            |
+| `{n,}`                   | n or more of the preceding group.                            |
+| `{,m}`                   | 0 to m of the preceding group.                               |
+| `{n,m}`                  | at least n and at most m of the preceding p.                 |
+| `{n,m}?` or `*?` or `+?` | performs a nongreedy match of the preceding p.               |
+| `^spam`                  | means the string must begin with spam.                       |
+| `spam$`                  | means the string must end with spam.                         |
+| `.`                      | any character, except newline characters.                    |
+| `\d`, `\w`, and `\s`     | a digit, word, or space character, ectively.                 |
+| `\D`, `\W`, and `\S`     | anything except a digit, word, or space acter, respectively. |
+| `[abc]`                  | any character between the brackets (such as a, b, ).         |
+| `[^abc]`                 | any character that isn’t between the brackets.               |
 
 
 
