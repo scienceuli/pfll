@@ -19,7 +19,7 @@ input="slides.md"
 output="index.html"
 
 # Template
-# template="template-revealjs.html"
+template="template-revealjs.html"
 
 # Revealjs URL
 revealjsurl="https://revealjs.com"
@@ -33,6 +33,7 @@ function build() {
 	-V controls=$controls \
 	-V progress=$progress \
 	-V revealjs-url=$revealjsurl \
+	--template=$template \
 	-s $input -o $output
 }
 
