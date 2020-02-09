@@ -18,6 +18,9 @@ input="slides.md"
 # Output
 output="index.html"
 
+# Template
+template="template-revealjs.html"
+
 # Revealjs URL
 revealjsurl="https://revealjs.com"
 
@@ -30,7 +33,13 @@ function build() {
 	-V controls=$controls \
 	-V progress=$progress \
 	-V revealjs-url=$revealjsurl \
+	--template=$template \
 	-s $input -o $output
 }
 
 build
+
+# Automatically add and commit
+git add .
+git commit -m "revealjs Presentation update"
+git push
