@@ -1,0 +1,3 @@
+alter_name1	neuer_name1
+alter_name2	neuer_name2
+alter_name3	neuer_name3

@@ -193,3 +193,40 @@ _Hinweis:_ Wenn nichts anderes angegeben ist, legt `open()` die Datei immer im a
 
 _Hinweis:_ Da man evtl. vor hat, der Datei später noch weitere Zeilen hinzuzufügen, sollte man immer am Ende einer Zeile `\n` mit ausgeben.
 
+### Öffnen mit with
+Damit eine Datei automatisch wieder sauber geschlossen wird, sollte man `with` benutzen:
+```python
+with open('textdatei.txt') as file:
+...     file.read()
+... 
+'Dies ist die erste Zeile.\nDies ist die zweite Zeile.\n'
+>>> file.closed
+True
+```
+Sollen die Zeilen einer Datei direkt beim Einlesen bearbeitet werden, bietet sich ein `for loop` an. 
+
+Beispiel: Die Datei _dateiliste.txt_ enthält alte und neue Dateinamen, jeweils durch Tab getrennt:
+```
+alter_name1 neuer_name1
+alter_name2 neuer_name2
+alter_name3 neuer_name3
+```
+Die Zeilen der Datei sollen am Tab aufgespalten und als Key/Value-Paar an ein Dictionary übergeben werden:
+```python
+>>> with open('dateiliste.txt') as file:
+...     datei_dict = dict(line.strip().split('\t') for line in file)
+... 
+>>> datei_dict
+{'alter_name1': 'neuer_name1', 'alter_name2': 'neuer_name2', 'alter_name3': 'neuer_name3'}
+```
+Mit diesem Dictionary könnte man zum Beispiel Dateien umbenennen:
+```python
+>>> import os
+>>> for k, v in datei_dict.items():
+...     os.rename(k,v)
+```
+
+
+
+
+
