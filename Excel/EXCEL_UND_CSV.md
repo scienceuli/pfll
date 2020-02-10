@@ -142,6 +142,55 @@ Dann führt man mit der Funktion `pd.merge()` die beiden _DataFrames_ zusammen; 
 1  Redaktion B         3  Blabla-Agentur
 ```
 
+### Merge, Inner Joins
+
+Mithilfe von **pandas** lassen sich Excel-Listen auf recht einfache Weise verknüpfen.
+
+Beispiel:
+
+- Die Datei _adressen.xlsx_ enthält Namen und Adressen:
+  ![Adressen](images/adressen.png)
+- Die Datei _emails.xlsx_ enthält Namen udn Emails:
+  ![Emails](images/emails.png)
+
+Ziel: beide Dateien in einer zusammenführen mit 3 Spalten _Name_, _Adresse_, _Email_.
+
+Die Zusammenführung erfolgt mit der Methode `merge()`. In unserem Fall ist ein _Merge_ auf die Spalte _Name_ sinnvoll, d.h. die Spalte _Name_ verknüpft (_join_) die beiden Tabelle. Dabei muss man entscheiden, wie man die Dateien _mergen_ soll:
+
+- nur die Datensätze zu _Name_, wenn _Name_ in beiden Tabellen vorhanden ist (_inner join_ = Schnittmenge)
+- alle Datensätze aus der ersten Tabelle (_left join_)
+- alle Datensätze aus der zweiten Tabelle (_right join_)
+
+Das folgende Skript zeigt alle drei _joins_:
+```python
+# merge.py
+
+import pandas as pd
+
+df_adressen = pd.read_excel("adressen.xlsx")
+df_emails = pd.read_excel("emails.xlsx")
+
+inner_join_df = df_adressen.merge(df_emails, how="inner", on="Name")
+left_join_df = df_adressen.merge(df_emails, how="left", on="Name")
+right_join_df = df_adressen.merge(df_emails, how="right", on="Name")
+
+
+inner_join_df.to_excel("adressen_und_emails.xlsx")
+left_join_df.to_excel("alle_adressen_und_emails.xlsx")
+right_join_df.to_excel("adressen_und_alle_emails.xlsx")
+```
+
+Die Dateien _adressen_und_emails.xlsx_ (_inner join_) und _alle_adressen_und_emails.xlsx_ (_left join_) enthalten nur die Datensätze zu den Namen, die in _adressen.xlsx_ und _emails.xlsx_ vorhanden sind:
+
+![inner join](images/alle_adressen.png)
+
+Die Datei _adressen_und_alle_emails.xlsx_ (_right join_) zeigt auch den Datensatz zu Peter; das Feld _Adresse_ bleibt leer:
+
+![right join](images/alle_emails.png)
+
+
+
+
 ### If-Statements, Pivot
 ((fehlt))
 
