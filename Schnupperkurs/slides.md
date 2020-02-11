@@ -2,6 +2,11 @@
 title: Schnupperkurs Programmieren
 theme: black
 ---
+```python
+# Programmieren für Lektorinnen und Lektoren 
+for name in anwesende:
+    print(f'Willkommen, {name}!')
+
 # Stricken ist kompliziert
 
 ```
