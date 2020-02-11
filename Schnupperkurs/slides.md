@@ -31,5 +31,13 @@ for countdown in 5, 4, 3, 2, 1, "los!":
     print(countdown)
 ```
 
+```python
+a = 5
+if a == 5:
+    print("a ist 5")
+else:
+    print("a is nicht fünf")
+```
+
 ---
 nächste slide
