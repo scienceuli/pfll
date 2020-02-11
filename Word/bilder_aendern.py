@@ -1,7 +1,8 @@
-# bilder_extrahieren_V2.py
+# bilder_aendern.py
 """
-extrahiert die Bilder aus einer Docx-Zipdatei mithilfe
-einer Iteration über die namelist()
+konvertiert die Bilder aus einer Docx-Zipdatei 
+mithilfe PIL
+hier: konvertieren in  s/w: RGB -> L
 """
 
 import zipfile, os, shutil
@@ -15,21 +16,21 @@ with zipfile.ZipFile(docx) as zipin:
     with zipfile.ZipFile(docx_conv, "w") as zipout:
         print(zipin.infolist())
         for file in zipin.infolist():
+            # content einlesen
             content = zipin.read(file)
             if file.filename.startswith("word/media"):
+                # Byte Streasm des Bildes einlesen
                 img = Image.open(io.BytesIO(content))
+                # Format der Bilddatei bestimmen
                 fmt = file.filename.split(".")[-1]
+                # konvertieren des Bildes
                 img = img.convert("L")
+                # Objekt erzeugen für Byte Stream -> out
                 outb = io.BytesIO()
                 img.save(outb, fmt)
                 content = outb.getvalue()
                 file.file_size = len(content)
                 file.CRC = zipfile.crc32(content)
-            #    filename = os.path.basename(file)
-            #    source = zipin.open(file)
-            #    img = Image.open(source)
-            #    img_L = img.convert("L")
-            #    img_L.save(source)
-            #    zipout.writestr(docx_conv)
+            
             zipout.writestr(file, content)
 
