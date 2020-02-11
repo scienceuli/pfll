@@ -316,7 +316,7 @@ Warum an dieser Stelle ein Abschnitt über Zipfiles? Weil Docx-Dateien Zipfiles 
 
 Das Modul aus der Python-Standardbibliothek für Zipfiles heißt **zipfile**.
 
-Zunächst kann man damit auflisten, was in einem Zipfiles, z.B. einer Word-Datei, zusammengepakt ist.
+Zunächst kann man damit auflisten, was in einem Zipfiles, z.B. einer Word-Datei, zusammengepackt ist.
 ```python
 >>> import zipfile
 >>> with zipfile.ZipFile('datei_mit_bild.docx') as zip:
@@ -325,13 +325,16 @@ Zunächst kann man damit auflisten, was in einem Zipfiles, z.B. einer Word-Datei
 ['[Content_Types].xml', '_rels/.rels', 'word/_rels/document.xml.rels', 'word/document.xml', 'word/media/image1.jpeg', 'word/theme/theme1.xml', 'word/settings.xml', 'docProps/core.xml', 'docProps/app.xml', 'word/webSettings.xml', 'word/styles.xml', 'word/fontTable.xml']
 >>> 
 ```
-**Hinweis:** Man muss die Endung der Word-Datei nicht ändern, das Modul **zipfile** erkennt auch eine Datei mit Endung ",docx" als Zipfile.
+**Hinweis:** Man muss die Endung der Word-Datei nicht ändern, das Modul **zipfile** erkennt auch eine Datei mit Endung ".docx" als Zipfile.
 
 Die `namelist` zeigt alle Dateien in der Zipdatei inklusive ihrem Pfad innerhalb der Zipdatei. Man sieht u.a., dass die Bilder in einem Word-Dokument immer im Verzeichnis _word/media_  abgelegt werden. 
 
 Die `namelist()` ist also eine Liste aus Strings. 
 Daneben gibt es noch die `infolist()`, eine Liste sogenanter `ZipInfo`-Objekte, die verschiedene Informationen zu jeder Datei in der Zipdatei enthält, unter anderem den _filename_.
-`infolist()` ist also keine Liste von Strings, sondern eine Liste von Objekten. Das kann man nutzen, um  die Bilder herauszuziehen, ohne ihren Pfad mitzukopieren. Z.B. mit folgendem Skript:
+`infolist()` ist also keine Liste von Strings, sondern eine Liste von Objekten.
+
+### Bilder extrahieren
+Die `infolist()` kann man nutzen, um  die Bilder herauszuziehen, ohne ihren Pfad mitzukopieren. Z.B. mit folgendem Skript:
 ```python
 # bilder_extrahieren.py
 
@@ -397,6 +400,51 @@ with zipfile.ZipFile(docx) as zip:
             with source, target:
                 shutil.copyfileobj(source, target)
 ```
+
+### Bilder konvertieren
+Doch Bilderlassen sich nicht nur extrahieren, sondern auch konvertieren.
+
+Das folgende Skript wandelt die Bilder in einem Word-Dokument in eine s/w-Version um.
+
+```python
+# bilder_aendern.py
+"""
+konvertiert die Bilder aus einer Docx-Zipdatei 
+mithilfe PIL
+hier: konvertieren in  s/w: RGB -> L
+"""
+
+import zipfile, os, shutil
+from PIL import Image
+import io
+
+docx = "datei_mit_bild.docx"
+docx_conv = "datei_mit_bild_conv.docx"
+
+with zipfile.ZipFile(docx) as zipin:
+    with zipfile.ZipFile(docx_conv, "w") as zipout:
+        print(zipin.infolist())
+        for file in zipin.infolist():
+            # content einlesen
+            content = zipin.read(file)
+            if file.filename.startswith("word/media"):
+                # Byte Streasm des Bildes einlesen
+                img = Image.open(io.BytesIO(content))
+                # Format der Bilddatei bestimmen
+                fmt = file.filename.split(".")[-1]
+                # konvertieren des Bildes
+                img = img.convert("L")
+                # Objekt erzeugen für Byte Stream -> out
+                outb = io.BytesIO()
+                img.save(outb, fmt)
+                content = outb.getvalue()
+                file.file_size = len(content)
+                file.CRC = zipfile.crc32(content)
+            
+            zipout.writestr(file, content)
+
+```
+
 
 
 

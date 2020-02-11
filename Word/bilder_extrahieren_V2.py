@@ -9,7 +9,7 @@ import zipfile, os, shutil
 docx = "datei_mit_bild.docx"
 image_path = "bilder_aus_datei_mit_bild"
 
-# Verzeichnis anlegen, in das die Bilde kommen
+# Verzeichnis anlegen, in das die Bilder kommen
 # falls es noch nicht existiert
 
 try:
