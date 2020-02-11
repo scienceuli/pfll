@@ -105,7 +105,63 @@ Dann fügt man quasi der Tabelle eine weitere Spalte hinzu, in der zeilenweise (
 2     Max     Manta             ABC  2019-01-01   NaN  10.0   15            25.0
 ```
 
-### Tabellen verknüpfen
+### Daten gruppieren
+Angenommen, man hat eine Liste _projektverwaltung.csv_ mit Namen, Projekten und Aufwänden:
+```
+Name,Projekt,Aufwand
+Ulrich,ABC,10
+Ulrich,Oha,20
+Walter,ABC,15
+Ulrich,ABC,3
+Sabine,Oha,30
+Walter,Oha,2
+Sabine,Oha,20
+Ulrich,Oha,10
+Walter,ABC,20
+```
+Man möchte sie nach Namen und Projekt auswerten und über Aufwand summieren:
+```python
+>>> df = pd.read_csv('Excel/projektverwaltung.csv')
+>>> df
+     Name Projekt  Aufwand
+0  Ulrich     ABC       10
+1  Ulrich     Oha       20
+2  Walter     ABC       15
+3  Ulrich     ABC        3
+4  Sabine     Oha       30
+5  Walter     Oha        2
+6  Sabine     Oha       20
+7  Ulrich     Oha       10
+8  Walter     ABC       20
+>>> df.groupby(["Name", "Projekt"]).Aufwand.sum()
+Name    Projekt
+Sabine  Oha        50
+Ulrich  ABC        13
+        Oha        30
+Walter  ABC        35
+        Oha         2
+Name: Aufwand, dtype: int64
+```
+Oder:
+```python
+>>> df.groupby(["Name"]).Aufwand.sum()
+Name
+Sabine    50
+Ulrich    43
+Walter    37
+```
+Auch Plotten ist sehr einfach mit **Pandas** und **matplotlib.plot**:
+```python
+>>> import matplotlib.pyplot as plt
+>>> df.groupby(["Name"]).Aufwand.sum().plot(kind='bar')
+<matplotlib.axes._subplots.AxesSubplot object at 0x11b91e750>
+>>> plt.show()
+```
+
+![Aufwände](images/aufwand.png)
+
+
+### Tabellen verknüpfen: Merge, Joins
 In Excel kann man Tabellenblätter mit einem `SVERWEIS(...)` verknüpfen. Ein typischer Fall:
 
 * Tabelleblatt 1 enthält Projekte, die Kundennummern zugeordnet sind:
@@ -142,9 +198,9 @@ Dann führt man mit der Funktion `pd.merge()` die beiden _DataFrames_ zusammen; 
 1  Redaktion B         3  Blabla-Agentur
 ```
 
-### Merge, Inner Joins
+### Merging von Exceldateien
 
-Mithilfe von **pandas** lassen sich Excel-Listen auf recht einfache Weise verknüpfen.
+Eion weiteres Beispiel: Mithilfe von **pandas** lassen sich auch Excel-Listen auf recht einfache Weise verknüpfen.
 
 Beispiel:
 
@@ -155,7 +211,7 @@ Beispiel:
 
 Ziel: beide Dateien in einer zusammenführen mit 3 Spalten _Name_, _Adresse_, _Email_.
 
-Die Zusammenführung erfolgt mit der Methode `merge()`. In unserem Fall ist ein _Merge_ auf die Spalte _Name_ sinnvoll, d.h. die Spalte _Name_ verknüpft (_join_) die beiden Tabelle. Dabei muss man entscheiden, wie man die Dateien _mergen_ soll:
+Die Zusammenführung erfolgt auch hier mit der Methode `merge()`. In unserem Fall ist ein _Merge_ auf die Spalte _Name_ sinnvoll, d.h. die Spalte _Name_ verknüpft (_join_) die beiden Tabelle. Dabei muss man entscheiden, wie man die Dateien _mergen_ soll:
 
 - nur die Datensätze zu _Name_, wenn _Name_ in beiden Tabellen vorhanden ist (_inner join_ = Schnittmenge)
 - alle Datensätze aus der ersten Tabelle (_left join_)
