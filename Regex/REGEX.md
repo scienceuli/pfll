@@ -80,7 +80,7 @@ Die Abfolge zusammengefasst:
 ## Funktion von re
 Das Modul **re** stellt eine Reihe von Funktionen zur Verfügung, mit denen man nach Regex such kann.
 
-* `re.compile()
+* `re.compile()`
 * `re.findall()`: gibt Liste aller Treffer zrück
 * `re.search()`: gibt ein Trefferobjekt (_match_) zurück, falls eines gefunden wird; bei mehreren Treffern nur das erste
 * `re.split()`: Gibt eine Liste zurück, in welcher der String, in dem gesucht wurde, bei jedem _match_ gesplittet wurde
