@@ -64,7 +64,7 @@ a = 5
 if a == 5:
     print("a ist 5")
 else:
-    print("a is nicht fünf")
+    print("a ist nicht fünf")
 ```
 
 ---
@@ -75,6 +75,6 @@ else:
 - große Community
 - zahlreiche Tutorials, Bücher, Module ...
 - breite Palette an Anwendungen, _von_ ...
-  - Verzeichnisse umbennenen _über_
+  - Verzeichnisse umbenennen _über_
   - Data Science _bis_
   - KI / Machine Learning

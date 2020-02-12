@@ -1,4 +1,9 @@
 # Word-Dateien bearbeiten
+
+* TOC
+{:toc}
+
+
 Mit Python kann man .docx-Dateien lesen und bearbeiten. Es gibt ein eigenes Modul dafür: **docx**. Es wird mit `pip` (oder `pipenv`) installiert:
 ```python
 $ pip install python-docx
@@ -58,7 +63,7 @@ print(getText('test_01.docx'))
 ```
 Die Funktion `getText(file)` bekommt einen Dateinamen und gibt den Text-String zurück (`return '\n'.join(gesamterText)`).
 
-
+[*An den Anfang*](#word-dateien-bearbeiten)
 
 ## Formatierungen erkennen
 Ein Word-Dokument enthält Absatz- und Zeichenformatierungen. Letztere strukturieren ein Dokument innerhalb eines Absatzes, denn die Absatzteile mit einer durchgehenden Formatierungen bilden einen _Run_. Immer, wenn das Zeichenformat sich ändert, beginnt ein neuer _Run_. 
@@ -78,6 +83,8 @@ for run in erster_absatz.runs:
     print(f"{run.style.name}: {run.text}\n")
 ```
 `runs` enthält für einen Absatz eine Liste der _Runs_. Die `for`-Schleife iteriert deshalb über alle _Runs_ innerhalb des Absatzes. 
+
+[*An den Anfang*](#word-dateien-bearbeiten)
 
 ## Formatierungen ändern
 Eine typische "Ungenauigkeit" in Word-Dokument: Zur Fett-Auszeichnung wird sowohl die Zeichenvorlage "Fett" (engl. "Strong") als auch die Zeicheneigenschaft "Fett" (engl. "bold") benutzt. Beide sind optisch nicht zu unterscheiden, strukturell aber verschiedene Dinge. Deshalb bauen wir uns ein Programm, das alle _Runs_ mit der Eigenschaft "bold" in _Runs_ mit dem Zeichenformat "Strong" umwandelt.
@@ -100,6 +107,8 @@ for run in erster_absatz.runs:
 
 doc.save("test_03_restyled.docx")
 ```
+
+[*An den Anfang*](#word-dateien-bearbeiten)
 
 ## Überschriften prüfen
 Mithilfe eines Python-Skripts kann man auch schnell die Formate innerhalb eines Word-Dokuments prüfen, z.B. die Logik ihrer Verwendung.
@@ -166,6 +175,8 @@ Kopiert man diese Zeilen z.B. nach Excel, werden die Überschriften aufgrund der
 
 Mögliche Erweiterung: Tritt dieser Fall auf (eine Überschriftenebene fehlt), soll eine Meldung ausgegeben werden. 
 
+[*An den Anfang*](#word-dateien-bearbeiten)
+
 ## Word und Seitenzahlen
 **Achtung:** Die Erfahrung mit Word zeigt, dass die im Folgenden beschriebene Vergabe der _Page Breaks_ während des Render-Vorgangs nicht zuverlässig erfolgt!
 
@@ -211,6 +222,8 @@ Die Ausgabe:
 Überschrift 11 auf Seite: 2
 ```
 
+[*An den Anfang*](#word-dateien-bearbeiten)
+
 ## Word-Dateien erzeugen
 Mithilfe des Moduls **python-docx** lassen sich auch docx-Dateien anlegen füllen. 
 
@@ -253,6 +266,8 @@ p.style = 'Headline 2'
 Ergebnis:
 
 !['Absatz mit Heading-Stil'](images/test22_3.png "Absatz mit Stil")
+
+[*An den Anfang*](#word-dateien-bearbeiten)
 
 ## Word-Templates
 
@@ -311,6 +326,8 @@ Das neue Dokument _rechnung.docx_ sieht nun so aus:
 
 !["Generierte Word-Datei"](images/rechnung.png)
 
+[*An den Anfang*](#word-dateien-bearbeiten)
+
 ## Echtes Beispiel
 Aus einer Mail der VfLL Mailingliste:
 > ich habe ein Manuskript mit 850 Überschriften, die jeweils die erste
@@ -351,6 +368,8 @@ Wird er gefunden, wird der Text extrahiert und ein neuer Absatz `new_para` damit
 
 Die nächsten beiden Zeilen sind etwas tricky. Die Zeile `p = para._p` gibt das XML-Element `_p` des aktuellen Absatzes zurück. Hinter ihm wird ein neuer Absatz eingefügt, und zwar das XML-Element `new_para._p` des neuen Absatzes. 
 
+[*An den Anfang*](#word-dateien-bearbeiten)
+
 ## Zipfiles
 Warum an dieser Stelle ein Abschnitt über Zipfiles? Weil Docx-Dateien Zipfiles sind. Das heißt: Methoden, die Python für die Behandlung von Zipfiles bereitstellt, lassen sich auch auf Word-Dateien anwenden.
 
@@ -372,6 +391,8 @@ Die `namelist` zeigt alle Dateien in der Zipdatei inklusive ihrem Pfad innerhalb
 Die `namelist()` ist also eine Liste aus Strings. 
 Daneben gibt es noch die `infolist()`, eine Liste sogenanter `ZipInfo`-Objekte, die verschiedene Informationen zu jeder Datei in der Zipdatei enthält, unter anderem den _filename_.
 `infolist()` ist also keine Liste von Strings, sondern eine Liste von Objekten.
+
+[*An den Anfang*](#word-dateien-bearbeiten)
 
 ### Bilder extrahieren
 Die `infolist()` kann man nutzen, um  die Bilder herauszuziehen, ohne ihren Pfad mitzukopieren. Z.B. mit folgendem Skript:
@@ -440,6 +461,8 @@ with zipfile.ZipFile(docx) as zip:
             with source, target:
                 shutil.copyfileobj(source, target)
 ```
+
+[*An den Anfang*](#word-dateien-bearbeiten)
 
 ### Bilder konvertieren
 Doch Bilderlassen sich nicht nur extrahieren, sondern auch konvertieren.
