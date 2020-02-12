@@ -23,7 +23,9 @@ for name in anwesende:
 - Gesprächsrunde: Warum das Ganze? Was kann man automatisieren?
 - Beispiele
 - Feedback
+
 ---
+
 # Vorbemerkungen
 - uk ist kein Programmierer
 - Denglish
@@ -63,6 +65,7 @@ else:
 ```
 
 ---
+
 # Warum Python?
 - Einfach (Syntax und Handling)
 - Populär
