@@ -311,6 +311,46 @@ Das neue Dokument _rechnung.docx_ sieht nun so aus:
 
 !["Generierte Word-Datei"](images/rechnung.png)
 
+## Echtes Beispiel
+Aus einer Mail der VfLL Mailingliste:
+> ich habe ein Manuskript mit 850 Überschriften, die jeweils die erste
+Zeile eines Liedes darstellen. Der Autor will jetzt aber, dass diese
+erste Zeile im Liedtext noch mal wiederholt wird. Eigentlicht einfach:
+Überschrift kopieren, Leerzeile, vor dem Lied einfügen,
+Überschriftenformatierung entfernen. Aber bei so vielen sollte das
+besser automatisch gehen - nur wie?
+
+> Wenn da jemand weiß, wies geht, wäre ich sehr verbunden. :-)
+
+Ideal für ein Python-Script:
+```python
+# liedanfaenge.py
+
+import docx
+import re
+
+doc = docx.Document("Xire_Orixa-Satz-06.docx")
+
+for para in doc.paragraphs:
+    # print(para.style.name)
+    r = re.match('Heading 3',para.style.name)
+
+    if r: 
+        t = para.text
+        # print(t)
+        new_para = doc.add_paragraph(t.strip())
+        new_para.style = "Standard_uk"
+        p = para._p
+        p.addnext(new_para._p)
+
+doc.save("Xire_Orixa-Satz-06_bearb.docx")
+```
+Die Word-Datei _Xire\_Orixa-Satz-06.docx_ wird eingelesen und anschließend absatzweise iteriert. Gesucht wird nach Absätzen, deren Format den Stil _Heading 3_ matchen.
+
+Wird er gefunden, wird der Text extrahiert und ein neuer Absatz `new_para` damit "gefüttert". Dem neuen Absatz wird der Stil _Standard\_uk_ zugewiesen.
+
+Die nächsten beiden Zeilen sind etwas tricky. Die Zeile `p = para._p` gibt das XML-Element `_p` des aktuellen Absatzes zurück. Hinter ihm wird ein neuer Absatz eingefügt, und zwar das XML-Element `new_para._p` des neuen Absatzes. 
+
 ## Zipfiles
 Warum an dieser Stelle ein Abschnitt über Zipfiles? Weil Docx-Dateien Zipfiles sind. Das heißt: Methoden, die Python für die Behandlung von Zipfiles bereitstellt, lassen sich auch auf Word-Dateien anwenden.
 
@@ -444,6 +484,7 @@ with zipfile.ZipFile(docx) as zipin:
             zipout.writestr(file, content)
 
 ```
+
 
 
 
