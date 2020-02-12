@@ -9,11 +9,13 @@ for name in anwesende:
     print(f'Willkommen, {name}!')
 ```
 ---
+
 # Python für Lektorinnen und Lektoren
 ```python
 for name in anwesende:
     print(f'Willkommen, {name}!')
 ```
+
 ---
 # Ablauf
 - Vorbemerkungen / Warum Python?
