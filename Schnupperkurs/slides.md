@@ -17,6 +17,7 @@ for name in anwesende:
 ```
 
 ---
+
 # Ablauf
 - Vorbemerkungen / Warum Python?
 - Python installieren
