@@ -20,7 +20,7 @@ for name in anwesende:
 
 # Worum geht es?
 
-> ich habe ein Manuskript mit 850 Überschriften, die jeweils die erste
+... ich habe ein Manuskript mit 850 Überschriften, die jeweils die erste
 Zeile eines Liedes darstellen. Der Autor will jetzt aber, dass diese
 erste Zeile im Liedtext noch mal wiederholt wird. Eigentlicht einfach:
 Überschrift kopieren, Leerzeile, vor dem Lied einfügen,
