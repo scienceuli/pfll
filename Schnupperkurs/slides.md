@@ -78,3 +78,16 @@ else:
   - Verzeichnisse umbenennen _über_
   - Data Science _bis_
   - KI / Machine Learning
+
+---
+
+# Routine automatisieren
+
+> ich habe ein Manuskript mit 850 Überschriften, die jeweils die erste
+Zeile eines Liedes darstellen. Der Autor will jetzt aber, dass diese
+erste Zeile im Liedtext noch mal wiederholt wird. Eigentlicht einfach:
+Überschrift kopieren, Leerzeile, vor dem Lied einfügen,
+Überschriftenformatierung entfernen. Aber bei so vielen sollte das
+besser automatisch gehen - nur wie?
+
+## Darum geht es!
