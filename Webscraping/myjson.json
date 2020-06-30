@@ -1,0 +1,63 @@
+{
+    " Kurzprofil": [
+        "Lektorat \u2022 Korrektorat \u2022 Redaktion \u2022 H\u00f6rbuchk\u00fcrzung und -regie \u2022",
+        "Werbelektorat"
+    ],
+    " Referenzen (Auswahl)": [
+        "Zu meinen Kunden z\u00e4hlen Schulbuch-, Kinder- und Jugendbuch- sowie",
+        "H\u00f6rbuchverlage. Zudem arbeite ich f\u00fcr Non-Profit-Organisationen und",
+        "Literaturagenturen."
+    ],
+    " Beruflicher Werdegang": {
+        "values": [
+            "Kaufm\u00e4nnische Ausbildung, Siemens AG\\",
+            "Studium der Angewandten Literatur- und Kulturwissenschaften in Dortmund,",
+            "Bochum und Uppsala (B.A.)\\",
+            "Studium der Angewandten Literaturwissenschaft in Berlin (M.A.)\\",
+            "Verlagsmitarbeiterin beim Aufbau Verlag und beim Ueberreuter Verlag",
+            "(Rechte & Lizenzen sowie Lektorat)\\",
+            "seit 2013 t\u00e4tig als freie Lektorin"
+        ],
+        " Dienstleistungen {dienstleistungen .field-label}": [
+            "-       -           Korrigieren",
+            "        Korrektorat: \u00dcberpr\u00fcfung von Orthografie, Grammatik und",
+            "        Zeichensetzung",
+            "    -           Lektorieren",
+            "        Lektorat/Redaktion: inhaltliche Pr\u00fcfung, stilistische",
+            "        \u00dcberarbeitung, Verbesserung von Verst\u00e4ndlichkeit und Lesefluss,",
+            "        K\u00fcrzungen und Erg\u00e4nzungen, Rechtschreibkontrolle",
+            "    -           Schlussredaktion",
+            "        \u00dcberpr\u00fcfung von Orthografie, Grammatik, Zeichensetzung und",
+            "        Typografie, Kontrolle von Eigennamen, Links, Bildern und",
+            "        Bildunterschriften"
+        ],
+        " Arbeitsbereiche {arbeitsbereiche .field-label}": [
+            "-       Belletristik",
+            "    -           H\u00f6rbuch",
+            "    -           Kinder-/Jugendbuch",
+            "-       Bildungsmedien",
+            "    Schulb\u00fccher, Lernhilfen",
+            "    -           Deutsch (Schule)",
+            "    -           Fremdsprachen (Schule)",
+            "    -           Mathematik und Naturwissenschaften (Schule)",
+            "    -           Gesellschaftswissenschaften (Schule)",
+            "    -           Kunst und Musik (Schule)",
+            "-       Organisations-/Unternehmenskommunikation",
+            "    Corporate Publishing, Public Relations, Werbung, Marketing",
+            "    -           Corporate Publishing",
+            "    -           Marketing, Werbung",
+            "    -           Non-Profit-PR"
+        ]
+    },
+    " Kontakt": [
+        "10243",
+        " Berlin",
+        "Deutschland",
+        "030 25 01 16 07 ",
+        ".inline}",
+        "  0160 99 71 41 65 ",
+        ".inline}",
+        "  ",
+        "{#7fcabfe4911afec8b5b8fd80ef54fc7b1cfad1d3} {.field-email .inline}"
+    ]
+}

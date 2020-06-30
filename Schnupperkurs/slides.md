@@ -8,6 +8,7 @@ theme: black
 for name in anwesende:
     print(f'Willkommen, {name}!')
 ```
+
 ---
 
 # Python für Lektorinnen und Lektoren
