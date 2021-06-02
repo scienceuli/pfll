@@ -47,7 +47,7 @@ soupsieve==1.9.5
 sqlparse==0.3.0
 starlette==0.13.1
 sympy==1.5.1
-urllib3==1.25.7
+urllib3==1.26.5
 uvicorn==0.11.2
 uvloop==0.14.0
 visitor==0.1.3
