@@ -26,7 +26,7 @@ itsdangerous==1.1.0
 jdcal==1.4.1
 Jinja2==2.11.0
 justpy==0.0.5
-lxml==4.4.2
+lxml==4.6.5
 MarkupSafe==1.1.1
 mpmath==1.1.0
 numpy==1.18.1
