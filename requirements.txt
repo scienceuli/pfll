@@ -29,7 +29,7 @@ justpy==0.0.5
 lxml==4.4.2
 MarkupSafe==1.1.1
 mpmath==1.1.0
-numpy==1.18.1
+numpy==1.22.0
 openpyxl==3.0.3
 pandas==0.25.3
 Pillow==7.0.0
