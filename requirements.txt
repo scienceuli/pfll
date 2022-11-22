@@ -32,7 +32,7 @@ mpmath==1.1.0
 numpy==1.18.1
 openpyxl==3.0.3
 pandas==0.25.3
-Pillow==7.0.0
+Pillow==9.3.0
 PyMuPDF==1.16.10
 PyPDF2==1.26.0
 pyperclip==1.7.0
